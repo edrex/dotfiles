@@ -12,6 +12,8 @@ do
     ok symlink "$(basename $file)" $file
 done
 
+register types/login_shell.sh
+ok login_shell $(which zsh)
 
 ok directory "$HOME/.ssh"
 ok check "[ -e $HOME/.ssh/*.pub ]"
