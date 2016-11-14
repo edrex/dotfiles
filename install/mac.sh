@@ -12,3 +12,7 @@ fi
 
 ok cask gpgtools
 
+ok brew hub
+
+ok brew-tap railwaycat/emacsmacport
+ok cask emacs-mac
