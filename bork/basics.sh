@@ -11,6 +11,9 @@ do
     ok symlink "$(basename $file)" $file
 done
 
+# for vim backups
+ok directory ~/.tmp
+
 ok github $HOME/.oh-my-zsh robbyrussell/oh-my-zsh
 ok loginshell $(which zsh)
 
