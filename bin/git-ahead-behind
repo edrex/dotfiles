@@ -1,0 +1,11 @@
+#!/bin/sh
+
+base=${1:-master}
+echo "relative to $base"
+{
+  echo "branch\tbehind\tahead"
+  for branch in $(git branch --no-merged $base);
+  do
+      echo $branch'\t'$( git rev-list --left-right --count $base...$branch )
+  done
+} | column -t
