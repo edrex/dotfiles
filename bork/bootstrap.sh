@@ -1,6 +1,4 @@
 # basics
-ok brew                                       # presence and updatedness of Homebrew
-ok brew git                                   # presence and updatedness of Homebrew git package
 ok directory $HOME/src                       # presence of the ~/code directory
 #ok github $HOME/src/dotfiles edrex/dotfiles # presence, drift of git repository in ~/code/dotfiles
 

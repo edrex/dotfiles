@@ -9,9 +9,3 @@ ok scutil ComputerName $computer_name
 ok scutil HostName $computer_name
 ok scutil LocalHostName $computer_name
 fi
-
-ok cask gpgtools
-
-ok brew hub
-
-ok cask emacs
