@@ -42,6 +42,7 @@ case $platform in
         ok cask qtpass
         ok brew pwgen
 
+        ok cask iterm2
         ok brew hub
         ok cask emacs
         ok brew the_silver_searcher
