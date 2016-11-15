@@ -29,11 +29,19 @@ if check_failed && satisfying; then
     ok github $HOME/.emacs.d syl20bnr/spacemacs
 fi
 
+cd $HOME
+ok symlink .password-store Documents/.password-store
+
 case $platform in
     Darwin)
         ok brew
         ok brew git
+
         ok cask gpgtools
+        ok brew pass
+        ok cask qtpass
+        ok brew pwgen
+
         ok brew hub
         ok cask emacs
         ok brew the_silver_searcher
