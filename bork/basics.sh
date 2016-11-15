@@ -47,6 +47,7 @@ case $platform in
         ok brew pwgen
 
         ok cask iterm2
+        ok cask hyper
         ok brew hub
         ok cask emacs
         pushd $HOME/bin
