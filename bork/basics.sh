@@ -49,6 +49,9 @@ case $platform in
         ok cask iterm2
         ok brew hub
         ok cask emacs
+        pushd $HOME/bin
+            ok symlink emacs "$DF"/misc/emacs-mac.sh
+        popd
         ok brew the_silver_searcher
         ok cask flux
 
