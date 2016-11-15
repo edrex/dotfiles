@@ -1,15 +1,19 @@
-cd $HOME
-for file in $HOME/src/dotfiles/configs/*
-do
-  ok symlink ".$(basename $file)" $file
-done
+DF=$HOME/src/dotfiles
+
+pushd $HOME
+    for file in "$DF"/configs/*
+    do
+    ok symlink ".$(basename $file)" $file
+    done
+popd
 
 ok directory "$HOME/bin"
-cd $HOME/bin
-for file in $HOME/src/dotfiles/bin/*
-do
-    ok symlink "$(basename $file)" $file
-done
+pushd $HOME/bin
+    for file in "$DF"/bin/*
+    do
+        ok symlink "$(basename $file)" $file
+    done
+popd
 
 # for vim backups
 ok directory ~/.tmp
