@@ -21,6 +21,11 @@ if check_failed && satisfying; then
     ssh-keygen -t rsa
 fi
 
+ok check "[ -d $HOME/.emacs.d ]"
+if check_failed && satisfying; then
+    ok github $HOME/.emacs.d syl20bnr/spacemacs
+fi
+
 case $platform in
     Darwin)
         ok brew
