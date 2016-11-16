@@ -18,19 +18,11 @@ popd
 # for vim backups
 ok directory ~/.tmp
 
-ok github $HOME/.oh-my-zsh robbyrussell/oh-my-zsh
-ok loginshell $(which zsh)
-
 ok directory "$HOME/.ssh"
 ok check "[ -e $HOME/.ssh/*.pub ]"
 if check_failed && satisfying; then
     echo "Generating SSH Key"
     ssh-keygen -t rsa
-fi
-
-ok check "[ -d $HOME/.emacs.d ]"
-if check_failed && satisfying; then
-    ok github $HOME/.emacs.d syl20bnr/spacemacs
 fi
 
 cd $HOME
@@ -40,6 +32,7 @@ case $platform in
     Darwin)
         ok brew
         ok brew git
+        ok brew zsh
 
         ok cask gpgtools
         ok brew pass
@@ -62,6 +55,18 @@ case $platform in
         ;;
     *) ;;
 esac
+
+register types/shells.sh
+ok shell $(which zsh)
+ok loginshell $(which zsh)
+
+ok github $HOME/.oh-my-zsh robbyrussell/oh-my-zsh
+
+ok check "[ -d $HOME/.emacs.d ]"
+if check_failed && satisfying; then
+    ok github $HOME/.emacs.d syl20bnr/spacemacs
+fi
+
 
 # for emacs golang
 ok go-get github.com/nsf/gocode
