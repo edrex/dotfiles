@@ -59,6 +59,7 @@ case $platform in
         ok brew-tap caskroom/fonts
         ok cask font-inconsolata-for-powerline
         ok cask font-fira-code
+        ok cask android-studio
         ;;
     Linux)
         ;;
