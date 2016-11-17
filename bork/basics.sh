@@ -62,7 +62,7 @@ case $platform in
 esac
 
 register types/shells.sh
-ok shell $(which zsh)
+ok shells $(which zsh)
 ok loginshell $(which zsh)
 
 ok github $HOME/.oh-my-zsh robbyrussell/oh-my-zsh
