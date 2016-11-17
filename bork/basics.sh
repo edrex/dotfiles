@@ -49,6 +49,11 @@ case $platform in
         ok brew the_silver_searcher
         ok cask flux
 
+        ok brew syncthing
+        if did_install; then
+            brew services start syncthing
+        fi
+        ok cask launchcontrol
         ok brew go
         ;;
     Linux)
