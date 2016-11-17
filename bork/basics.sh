@@ -55,6 +55,10 @@ case $platform in
         fi
         ok cask launchcontrol
         ok brew go
+
+        ok brew-tap caskroom/fonts
+        ok cask font-inconsolata-for-powerline
+        ok cask font-fira-code
         ;;
     Linux)
         ;;
