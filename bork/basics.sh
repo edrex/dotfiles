@@ -60,6 +60,9 @@ case $platform in
         ok cask font-inconsolata-for-powerline
         ok cask font-fira-code
         ok cask android-studio
+        ok cask java
+        ok brew mas
+        ok mas 497799835 Xcode
         ;;
     Linux)
         ;;
