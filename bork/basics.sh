@@ -42,7 +42,10 @@ case $platform in
         ok cask iterm2
         ok cask hyper
         ok brew hub
-        ok cask emacs
+        # the railwaycat emacs port works better than the official one IMO
+        ok brew-tap railwaycat/emacsmacport
+        ok cask emacs-mac
+        # ok cask emacs
         pushd $HOME/bin
             ok symlink emacs "$DF"/misc/emacs-mac.sh
         popd
@@ -63,6 +66,8 @@ case $platform in
         ok cask java
         ok brew mas
         ok mas 497799835 Xcode
+        ok brew mpv
+        ok cask amethyst
         ;;
     Linux)
         ;;
