@@ -63,6 +63,7 @@ values."
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      ;; spell-checking
+     dash
      syntax-checking
      version-control
      osx
@@ -416,23 +417,3 @@ you should place you code here."
             (if this-win-2nd (other-window 1))))))
   (evil-leader/set-key "wt" 'window-toggle-split-orientation)
 )
-
-;; Do not write anything past this comment. This is where Emacs will
-;; auto-generate custom variable definitions.
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(evil-want-Y-yank-to-eol nil)
- '(magit-log-arguments (quote ("--graph" "--decorate" "--follow" "-n256")))
- '(package-selected-packages
-   (quote
-    (vimrc-mode dactyl-mode log4e gntp skewer-mode json-snatcher json-reformat haml-mode gitignore-mode fringe-helper git-gutter+ logito pcache pos-tip web-completion-data dash-functional pythonic highlight nameframe multiple-cursors inf-ruby go-guru pug-mode ob-elixir minitest hide-comnt helm-purpose window-purpose imenu-list async typescript-mode undo-tree elixir-mode go-mode simple-httpd s py-isort osx-dictionary dumb-jump anaconda-mode auto-complete tern anzu smartparens evil git-gutter request marshal ht alert git-commit with-editor hydra f js2-mode dash flycheck-elm elm-mode swiper ivy stickyfunc-enhance srefactor helm-cscope xcscope emoji-cheat-sheet-plus company-emoji yapfify flycheck-protobuf protobuf-mode org iedit company helm helm-core yasnippet avy gh magit magit-popup markdown-mode flycheck helm-gtags ggtags magit-gerrit which-key persp-mode evil-unimpaired evil-matchit evil-magit projectile yaml-mode xterm-color ws-butler window-numbering web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tide tagedit spacemacs-theme spaceline smeargle slim-mode shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe reveal-in-osx-finder restart-emacs rbenv rake rainbow-delimiters quelpa pyvenv pytest pyenv-mode py-yapf popwin pip-requirements pbcopy paradox osx-trash orgit org-projectile org-present org-pomodoro org-plus-contrib org-download org-bullets open-junk-file neotree multi-term move-text mmm-mode markdown-toc magit-gitflow magit-gh-pulls macrostep lorem-ipsum livid-mode live-py-mode linum-relative link-hint less-css-mode launchctl json-mode js2-refactor js-doc jade-mode info+ indent-guide ido-vertical-mode hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio go-eldoc gnuplot github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gist gh-md flycheck-pos-tip flycheck-mix flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help erlang emmet-mode elisp-slime-nav diff-hl define-word cython-mode csv-mode company-web company-tern company-statistics company-quickhelp company-go company-anaconda column-enforce-mode coffee-mode clean-aindent-mode chruby bundler auto-yasnippet auto-highlight-symbol auto-compile alchemist aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
- '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
