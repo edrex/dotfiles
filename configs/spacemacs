@@ -69,8 +69,8 @@ values."
      osx
      html
      go
-     journal
-     my
+     ;; journal
+     ;; my
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -334,8 +334,12 @@ you should place you code here."
   (setq org-capture-templates
         '(("t" "Todo" entry (file+headline "~/Documents/Org/Tasks.org" "Inbox")
            "* TODO %?\n  %i\n  %a")
-          ("j" "Journal" entry (file+datetree "~/Documents/Journal.org")
-           "* %?\nEntered on %U\n  %i\n  %a")))
+          ("j" "Journal" entry (file+datetree "~/Documents/Org/Journal.org")
+           "* %?\nEntered on %U\n  %i\n  %a")
+          ("T" "Work Task" entry (file+headline "~/Documents/Org/Work/Tasks.org" "Inbox")
+           "* TODO %?\n  %i\n  %a")
+          ("J" "Work Journal" entry (file+datetree "~/Documents/Org/Work/Journal.org")
+                                              "* %?\nEntered on %U\n  %i\n  %a")))
   (setq org-agenda-files '("~/Documents/Org/Tasks.org"))
   (setq org-refile-targets '((org-agenda-files . (:maxlevel . 6))))
   ;;; scroll one line at a time (less "jumpy" than defaults)
@@ -368,6 +372,13 @@ you should place you code here."
   ;; http://stackoverflow.com/questions/2081577/setting-emacs-split-to-horizontal
   (setq split-height-threshold nil)
   (setq split-width-threshold 0)
+
+  ;; docsets
+  (defun go-doc ()
+    (interactive)
+    (setq-local helm-dash-docsets '("Go")))
+
+  (add-hook 'go-mode-hook 'go-doc)
 
   (defun my-org-mode-hook ()
     (set (make-local-variable 'auto-save-visited-file-name) t)
