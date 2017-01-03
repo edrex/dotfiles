@@ -1,0 +1,25 @@
+#!/bin/sh
+# Auto-reconnect ssh screen session after sleep + wifi network change
+# usage: ssh-auto user@server
+# With these setting SSH will detect a dropped connection after 30 seconds.
+# Script will attempt to reconnect every 5 seconds whenever connection is dropped.
+# Use Ctrl-C to exit the reconnect loop.
+
+# choose your remote session manager
+# ON_CONNECT_CMD='screen -DR'
+ON_CONNECT_CMD='tmux -CC'
+ON_CONNECT_CMD='tmux a || tmux'
+
+while true; do
+  ssh -t -o "ServerAliveInterval 10" -o "ServerAliveCountMax 3" $@ "bash -c '$ON_CONNECT_CMD'"
+
+	# SSH exit status is 255 on error, 0 on normal exit
+  if [ $? -eq 0 ]; then
+    echo "Exiting ssh-auto since ssh exited normally"
+		exit
+  fi
+
+	sleep 5
+	echo "Attempting to reconnect to $@"
+done
+
