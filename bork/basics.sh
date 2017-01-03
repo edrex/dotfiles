@@ -51,6 +51,8 @@ case $platform in
         popd
         ok brew the_silver_searcher
         ok cask flux
+        ok brew node
+        ok npm tern
 
         ok brew syncthing
         if did_install; then
