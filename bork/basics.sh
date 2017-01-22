@@ -49,7 +49,7 @@ case $platform in
         pushd $HOME/bin
             ok symlink emacs "$DF"/misc/emacs-mac.sh
         popd
-        ok brew the_silver_searcher
+        ok brew ripgrep
         ok cask flux
         ok brew node
         ok npm tern
@@ -60,6 +60,8 @@ case $platform in
         fi
         ok cask launchcontrol
         ok brew go
+
+        ok brew python3
 
         ok brew-tap caskroom/fonts
         ok cask font-inconsolata-for-powerline
