@@ -7,6 +7,11 @@ pushd $HOME
     done
 popd
 
+for file in *
+do
+    ok symlink $HOME/Library/Preferences/$file "$DF"/prefs/$file
+done
+
 ok directory "$HOME/bin"
 pushd $HOME/bin
     for file in "$DF"/bin/*
