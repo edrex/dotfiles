@@ -244,7 +244,7 @@ values."
    ;; another same-purpose window is available. If non-nil, `switch-to-buffer'
    ;; displays the buffer in a same-purpose window even if the buffer can be
    ;; displayed in the current window. (default nil)
-   dotspacemacs-switch-to-buffer-prefers-purpose nil
+   dotspacemacs-switch-to-buffer-prefers-purpose t
    ;; If non-nil a progress bar is displayed when spacemacs is loading. This
    ;; may increase the boot time on some systems and emacs builds, set it to
    ;; nil to boost the loading time. (default t)
@@ -324,7 +324,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
   ;; (define-key evil-ex-search-keymap "\C-r" 'evil-paste-from-register)
 
   (setq-default
-   git-magit-status-fullscreen t
+   ;; git-magit-status-fullscreen t
    ;; oh-my-zsh has a .zshrc which makes auto-layer complain
    exec-path-from-shell-check-startup-files nil
    ;; Use emacs terminfo, not system terminfo
@@ -343,6 +343,11 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place you code here."
+  ;; TODO: temporary, https://github.com/syl20bnr/spacemacs/issues/8238
+  (add-to-list 'purpose-user-mode-purposes '(org-mode . org))
+  (add-to-list 'purpose-user-mode-purposes '(protobuf-mode . edit))
+  (purpose-compile-user-configuration)
+  
   (global-git-commit-mode t)
 
   (setq-default
