@@ -80,6 +80,9 @@ case $platform in
         ok mas 497799835 Xcode
         ok brew mpv
         ok cask amethyst
+
+        # Hosting Ops
+        ok brew doctl
         ;;
     Linux)
         ;;
