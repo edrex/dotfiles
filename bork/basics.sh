@@ -7,11 +7,6 @@ pushd $HOME
     done
 popd
 
-for file in *
-do
-    ok symlink $HOME/Library/Preferences/$file "$DF"/prefs/$file
-done
-
 ok directory "$HOME/bin"
 pushd $HOME/bin
     for file in "$DF"/bin/*
@@ -35,6 +30,13 @@ ok symlink .password-store Documents/.password-store
 
 case $platform in
     Darwin)
+        pushd $DF/prefs
+        for file in *
+        do
+            ok symlink $HOME/Library/Preferences/$file "$DF"/prefs/$file
+        done
+        popd
+
         ok brew
         ok brew git
         ok brew zsh
