@@ -69,6 +69,7 @@ case $platform in
         ok brew go
 
         ok brew python3
+        ok cask libreoffice
 
         ok brew-tap caskroom/fonts
         ok cask font-inconsolata-for-powerline
