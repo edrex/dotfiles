@@ -40,12 +40,15 @@ case $platform in
         ok brew
         ok brew git
         ok brew zsh
+        ok brew tmate
+        ok brew tmux
 
         ok cask gpgtools
         ok brew pass
         ok cask qtpass
         ok brew pwgen
 
+        ok cask caskroom/versions/firefoxdeveloperedition
         ok cask iterm2
         ok cask hyper
         ok brew hub
@@ -67,6 +70,7 @@ case $platform in
         fi
         ok cask launchcontrol
         ok brew go
+        ok brew go-delve/delve/delve
 
         ok brew python3
         ok cask libreoffice

@@ -45,7 +45,8 @@ values."
      protobuf
      auto-completion
      ;; better-defaults
-     ivy
+     helm
+     ;; ivy
      emacs-lisp
      git
      github
@@ -351,6 +352,7 @@ you should place you code here."
   (global-git-commit-mode t)
 
   (setq-default
+   evil-want-fine-undo t
    ;; js2-mode
    js2-basic-offset 2
    ;; web-mode
