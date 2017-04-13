@@ -5,7 +5,7 @@ export ZSH=$HOME/.oh-my-zsh
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 # ZSH_THEME="robbyrussell"
 
-ZSH_THEME="pure"
+ZSH_THEME="refined"
 # optionally define some options
 PURE_CMD_MAX_EXEC_TIME=10
 

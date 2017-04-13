@@ -89,6 +89,13 @@ case $platform in
         ok brew doctl
         ;;
     Linux)
+        ok apt emacs
+        ok apt golang
+        ok apt zsh
+        ok apt xmonad
+        ok apt suckless-tools
+        ok apt synapse
+        ok apt chromium-browser
         ;;
     *) ;;
 esac
@@ -104,6 +111,8 @@ if check_failed && satisfying; then
     ok github $HOME/.emacs.d syl20bnr/spacemacs
 fi
 
+
+. $HOME/.profile
 
 # for emacs golang
 ok go-get github.com/nsf/gocode
