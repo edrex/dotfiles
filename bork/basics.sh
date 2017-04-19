@@ -1,11 +1,16 @@
 DF=$HOME/src/dotfiles
 
-pushd $HOME
-    for file in "$DF"/configs/*
-    do
-    ok symlink ".$(basename $file)" $file
-    done
-popd
+
+linkdots() {
+	pushd $2
+	    for file in "$1"/*
+	    do
+	    ok symlink ".$(basename $file)" $file
+	    done
+	popd
+}
+
+linkdots "$DF"/dots/all $HOME
 
 ok directory "$HOME/bin"
 pushd $HOME/bin
@@ -30,6 +35,8 @@ ok symlink .password-store Documents/.password-store
 
 case $platform in
     Darwin)
+	linkdots "$DF"/dots/mac $HOME
+
         pushd $DF/prefs
         for file in *
         do
@@ -89,13 +96,16 @@ case $platform in
         ok brew doctl
         ;;
     Linux)
-        ok apt emacs
-        ok apt golang
+        linkdots "$DF"/dots/linux $HOME
+        ok apt vim
+				ok apt tmux
         ok apt zsh
+        ok apt emacs
         ok apt xmonad
         ok apt suckless-tools
-        ok apt synapse
+        ok apt synergy
         ok apt chromium-browser
+        ok apt golang
         ;;
     *) ;;
 esac

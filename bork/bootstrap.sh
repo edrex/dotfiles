@@ -10,8 +10,8 @@ if check_failed && satisfying; then
     ok check "ssh-keygen -t rsa -b 4096 -o -a 100 -f ~/.ssh/id_rsa"
 fi
 
-echo "TODO: upload ssh key to github"
-# curl -u "edrex" --data '{"title":"eric@spacelab.pdxhub.org","key":"'"$(cat ~/.ssh/id_rsa.pub)"'"}' https://api.github.com/user/keys
+# echo "TODO: upload ssh key to github"
+curl -u "edrex" --data '{"title":"${USER}@$(hostname -f)","key":"'"$(cat ~/.ssh/id_rsa.pub)"'"}' https://api.github.com/user/keys
 
 # basics
 ok directory $HOME/src

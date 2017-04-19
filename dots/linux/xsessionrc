@@ -1,0 +1,4 @@
+#!/bin/sh
+
+xmodmap ~/.xmodmap
+#syndaemon -i 0.3 -KRd
