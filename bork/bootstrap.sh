@@ -1,9 +1,9 @@
-case $platform in
-    Linux)
-        ok apt git
-        ;;
-    *) ;;
-esac
+# case $platform in
+#     Linux)
+#         ok apt git
+#         ;;
+#     *) ;;
+# esac
 
 ok check "[ -f $HOME/.ssh/id_rsa ]"
 if check_failed && satisfying; then

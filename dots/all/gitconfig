@@ -45,3 +45,6 @@
 	recentrepo = /Users/eric/Projects/dotfiles
 [commit]
 #	gpgsign = true
+[github]
+	user = edrex
+	oauth-token = ba2097d6603cbc5f7e5675c02845565e8bdb88a1

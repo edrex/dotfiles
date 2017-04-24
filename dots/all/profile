@@ -1,3 +1,4 @@
-export PATH=$HOME/bin:$PATH
+export PATH=$HOME/bin:/Applications/Emacs.app/Contents/MacOS/bin:$PATH
 export GOPATH=$HOME
 export GOROOT="$(go env GOROOT)"
+ssh-add -A
