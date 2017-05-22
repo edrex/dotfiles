@@ -1,0 +1,5 @@
+alias e="emacsclient -ct"
+alias ew="emacsclient -nc"
+alias vim=e
+alias vimm=/usr/bin/vim
+alias bs='bork satisfy $DOTFILES/bork/basics.sh'

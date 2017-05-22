@@ -1,0 +1,48 @@
+// vim:ts=4:sw=4:et
+{
+    "border": "normal",
+    "current_border_width": 4,
+    "floating": "auto_off",
+    "geometry": {
+       "height": 794,
+       "width": 1282,
+       "x": 0,
+       "y": 0
+    },
+    "name": "eric@chip: ~",
+    "percent": 0.5,
+    "swallows": [
+       {
+       // "class": "^Gnome\\-terminal$",
+       // "instance": "^gnome\\-terminal\\-server$",
+       // "title": "^eric\\@chip\\:\\ \\~$",
+       // "transient_for": "^$",
+       // "window_role": "^gnome\\-terminal\\-window\\-a721ce4f\\-1058\\-43c0\\-8071\\-9580811fc143$"
+       }
+    ],
+    "type": "con"
+}
+
+{
+    "border": "normal",
+    "current_border_width": 4,
+    "floating": "auto_off",
+    "geometry": {
+       "height": 1224,
+       "width": 1376,
+       "x": 0,
+       "y": 0
+    },
+    "name": "emacs@chip",
+    "percent": 0.5,
+    "swallows": [
+       {
+       "class": "^Emacs$",
+       // "instance": "^emacs$",
+       // "title": "^emacs\\@chip$",
+       // "transient_for": "^$"
+       }
+    ],
+    "type": "con"
+}
+

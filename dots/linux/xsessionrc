@@ -1,4 +1,17 @@
 #!/bin/sh
 
-xmodmap ~/.xmodmap
+# https://bugs.archlinux.org/task/46093
+export XDG_CURRENT_DESKTOP=KDE
+
 #syndaemon -i 0.3 -KRd
+xrandr --dpi 288
+xinput set-prop 12 "libinput Tapping Enabled" 1
+
+xmodmap ~/.xmodmap
+xrdb -merge ~/.Xresources
+
+# for xmonad + java apps
+export _JAVA_AWT_WM_NONREPARENTING=1
+nm-applet&
+qtpass&
+

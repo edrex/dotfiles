@@ -97,15 +97,15 @@ case $platform in
         ;;
     Linux)
         linkdots "$DF"/dots/linux $HOME
-        ok apt vim
-				ok apt tmux
-        ok apt zsh
-        ok apt emacs
-        ok apt xmonad
-        ok apt suckless-tools
-        ok apt synergy
-        ok apt chromium-browser
-        ok apt golang
+#        ok apt vim
+#				ok apt tmux
+#        ok apt zsh
+#        ok apt emacs
+#        ok apt xmonad
+#        ok apt suckless-tools
+#        ok apt synergy
+#        ok apt chromium-browser
+#        ok apt golang
         ;;
     *) ;;
 esac
@@ -116,10 +116,10 @@ ok loginshell $(which zsh)
 
 ok github $HOME/.oh-my-zsh robbyrussell/oh-my-zsh
 
-ok check "[ -d $HOME/.emacs.d ]"
-if check_failed && satisfying; then
+#ok check "[ -d $HOME/.emacs.d ]"
+#if check_failed && satisfying; then
     ok github $HOME/.emacs.d syl20bnr/spacemacs
-fi
+#fi
 
 
 . $HOME/.profile
