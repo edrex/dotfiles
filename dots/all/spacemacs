@@ -43,7 +43,7 @@ values."
      python
      typescript
      elm
-     protobuf
+     ;; protobuf
      auto-completion
      ;; better-defaults
      helm
@@ -65,6 +65,7 @@ values."
      osx
      html
      go
+     terraform
      ;; journal
      ;; my
      )
@@ -324,7 +325,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
   ;; (define-key evil-ex-search-keymap "\C-r" 'evil-paste-from-register)
 
   (setq-default
-   ;; git-magit-status-fullscreen t
+   git-magit-status-fullscreen t
    ;; oh-my-zsh has a .zshrc which makes auto-layer complain
    exec-path-from-shell-check-startup-files nil
    ;; Use emacs terminfo, not system terminfo
@@ -347,13 +348,14 @@ you should place you code here."
   ;; (add-to-list 'purpose-user-mode-purposes '(org-mode . org))
   ;; (add-to-list 'purpose-user-mode-purposes '(protobuf-mode . edit))
   ;; (purpose-compile-user-configuration)
-
+  ;; (add-to-list 'auto-mode-alist '("\\.tf$" . json-mode))
   (defun org-mode-export-hook ()
     (add-hook 'after-save-hook 'org-html-export-to-html t t))
   (add-hook 'org-mode-hook #'org-mode-export-hook)
   (global-git-commit-mode t)
 
   (setq-default
+   browse-url-browser-function 'browse-url-xdg-open
    evil-want-fine-undo t
    ;; js2-mode
    js2-basic-offset 2
@@ -447,31 +449,33 @@ you should place you code here."
   ))
   
   ;; http://www.emacswiki.org/emacs/ToggleWindowSplit
-  (defun window-toggle-split-orientation ()
-    (interactive)
-    (if (= (count-windows) 2)
-        (let* ((this-win-buffer (window-buffer))
-               (next-win-buffer (window-buffer (next-window)))
-               (this-win-edges (window-edges (selected-window)))
-               (next-win-edges (window-edges (next-window)))
-               (this-win-2nd (not (and (<= (car this-win-edges)
-                                           (car next-win-edges))
-                                       (<= (cadr this-win-edges)
-                                           (cadr next-win-edges)))))
-               (splitter
-                (if (= (car this-win-edges)
-                       (car (window-edges (next-window))))
-                    'split-window-horizontally
-                  'split-window-vertically)))
-          (delete-other-windows)
-          (let ((first-win (selected-window)))
-            (funcall splitter)
-            (if this-win-2nd (other-window 1))
-            (set-window-buffer (selected-window) this-win-buffer)
-            (set-window-buffer (next-window) next-win-buffer)
-            (select-window first-win)
-            (if this-win-2nd (other-window 1))))))
-  (evil-leader/set-key "wt" 'window-toggle-split-orientation)
+  ;; replaced by window-layout-toggle (SPC w +)
+  ;; keeping as an example
+  ;; (defun window-toggle-split-orientation ()
+  ;;   (interactive)
+  ;;   (if (= (count-windows) 2)
+  ;;       (let* ((this-win-buffer (window-buffer))
+  ;;              (next-win-buffer (window-buffer (next-window)))
+  ;;              (this-win-edges (window-edges (selected-window)))
+  ;;              (next-win-edges (window-edges (next-window)))
+  ;;              (this-win-2nd (not (and (<= (car this-win-edges)
+  ;;                                          (car next-win-edges))
+  ;;                                      (<= (cadr this-win-edges)
+  ;;                                          (cadr next-win-edges)))))
+  ;;              (splitter
+  ;;               (if (= (car this-win-edges)
+  ;;                      (car (window-edges (next-window))))
+  ;;                   'split-window-horizontally
+  ;;                 'split-window-vertically)))
+  ;;         (delete-other-windows)
+  ;;         (let ((first-win (selected-window)))
+  ;;           (funcall splitter)
+  ;;           (if this-win-2nd (other-window 1))
+  ;;           (set-window-buffer (selected-window) this-win-buffer)
+  ;;           (set-window-buffer (next-window) next-win-buffer)
+  ;;           (select-window first-win)
+  ;;           (if this-win-2nd (other-window 1))))))
+  ;; (evil-leader/set-key "wt" 'window-toggle-split-orientation)
 )
 
 (custom-set-variables
@@ -481,7 +485,7 @@ you should place you code here."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (zeal-at-point yapfify yaml-mode xterm-color ws-butler winum which-key web-mode web-beautify volatile-highlights vimrc-mode vi-tilde-fringe uuidgen use-package toc-org tide typescript-mode tagedit spaceline powerline smeargle slim-mode shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe reveal-in-osx-finder restart-emacs rbenv rake rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode popwin pip-requirements persp-mode pcre2el pbcopy paradox spinner osx-trash osx-dictionary orgit org-projectile org-present org-pomodoro alert log4e gntp org-download org-bullets open-junk-file ob-elixir neotree multi-term move-text mmm-mode minitest markdown-toc markdown-mode magit-gitflow magit-gh-pulls macrostep lorem-ipsum livid-mode skewer-mode simple-httpd live-py-mode linum-relative link-hint less-css-mode launchctl json-snatcher js2-refactor multiple-cursors js-doc intero info+ indent-guide hy-mode hungry-delete htmlize hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make projectile helm-hoogle helm-gitignore request helm-flx helm-descbinds helm-dash helm-css-scss helm-company helm-c-yasnippet helm-ag haskell-snippets haml-mode google-translate golden-ratio go-guru go-eldoc gnuplot gitignore-mode github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gist gh marshal logito pcache ht gh-md fuzzy flycheck-pos-tip pos-tip flycheck-mix flycheck-haskell flycheck-elm flycheck-credo flycheck flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit magit-popup git-commit with-editor evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg eval-sexp-fu highlight eshell-z eshell-prompt-extras esh-help erlang emmet-mode elm-mode elisp-slime-nav dumb-jump diminish dactyl-mode cython-mode company-web web-completion-data company-tern dash-functional tern company-go go-mode company-ghci company-ghc ghc haskell-mode company-cabal company-anaconda column-enforce-mode cmm-mode clean-aindent-mode chruby bundler inf-ruby bind-map bind-key auto-yasnippet auto-highlight-symbol auto-compile packed anaconda-mode pythonic f alchemist s dash elixir-mode pkg-info epl ace-link ace-jump-helm-line helm helm-core ac-ispell auto-complete popup yasnippet undo-tree org-plus-contrib json-mode js2-mode hydra diff-hl csv-mode company-statistics company coffee-mode async aggressive-indent adaptive-wrap ace-window avy))))
+    (terraform-mode hcl-mode evil-unimpaired zeal-at-point yapfify yaml-mode xterm-color ws-butler winum which-key web-mode web-beautify volatile-highlights vimrc-mode vi-tilde-fringe uuidgen use-package toc-org tide typescript-mode tagedit spaceline powerline smeargle slim-mode shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe reveal-in-osx-finder restart-emacs rbenv rake rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode popwin pip-requirements persp-mode pcre2el pbcopy paradox spinner osx-trash osx-dictionary orgit org-projectile org-present org-pomodoro alert log4e gntp org-download org-bullets open-junk-file ob-elixir neotree multi-term move-text mmm-mode minitest markdown-toc markdown-mode magit-gitflow magit-gh-pulls macrostep lorem-ipsum livid-mode skewer-mode simple-httpd live-py-mode linum-relative link-hint less-css-mode launchctl json-snatcher js2-refactor multiple-cursors js-doc intero info+ indent-guide hy-mode hungry-delete htmlize hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make projectile helm-hoogle helm-gitignore request helm-flx helm-descbinds helm-dash helm-css-scss helm-company helm-c-yasnippet helm-ag haskell-snippets haml-mode google-translate golden-ratio go-guru go-eldoc gnuplot gitignore-mode github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gist gh marshal logito pcache ht gh-md fuzzy flycheck-pos-tip pos-tip flycheck-mix flycheck-haskell flycheck-elm flycheck-credo flycheck flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit magit-popup git-commit with-editor evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg eval-sexp-fu highlight eshell-z eshell-prompt-extras esh-help erlang emmet-mode elm-mode elisp-slime-nav dumb-jump diminish dactyl-mode cython-mode company-web web-completion-data company-tern dash-functional tern company-go go-mode company-ghci company-ghc ghc haskell-mode company-cabal company-anaconda column-enforce-mode cmm-mode clean-aindent-mode chruby bundler inf-ruby bind-map bind-key auto-yasnippet auto-highlight-symbol auto-compile packed anaconda-mode pythonic f alchemist s dash elixir-mode pkg-info epl ace-link ace-jump-helm-line helm helm-core ac-ispell auto-complete popup yasnippet undo-tree org-plus-contrib json-mode js2-mode hydra diff-hl csv-mode company-statistics company coffee-mode async aggressive-indent adaptive-wrap ace-window avy))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

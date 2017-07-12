@@ -7,7 +7,7 @@
 # Source: 
 # https://ask.fedoraproject.org/en/question/46201/how-to-map-scancodes-to-keycodes/
 
-# query udevadm info /dev/input/event18|grep KEY
+# udevadm info /dev/input/event18|grep KEY
 
 # Question: how to match all keyboards?
 # Doesn't seem possible anymore:
@@ -19,18 +19,20 @@ evdev:input:*
  KEYBOARD_KEY_700e3=leftalt
  KEYBOARD_KEY_70039=esc
 
-#keyboard:*
-
-evdev:atkbd:dmi:bvn*:bvr*:bd*:svn*:pn*:pvr*
+# from evemu-describe
+evdev:input:b0011v0001p0001e*
+# evdev:atkbd:dmi:bvn*:bvr*:bd*:svn*:pn*:pvr*
  KEYBOARD_KEY_3a=esc
  KEYBOARD_KEY_38=leftmeta
  KEYBOARD_KEY_db=leftalt
 
-evdev:name:Kinesis KB800MB-BT:dmi:bvn*:bvr*:bd*:svn*:pn*
-#evdev:input:b0005v0a5cp8502e*
+# evdev:name:Kinesis KB800MB-BT:dmi:bvn*:bvr*:bd*:svn*:pn*
+
+evdev:input:b0005v0A5Cp8502*
  KEYBOARD_KEY_70039=esc
  KEYBOARD_KEY_700e2=leftalt
  KEYBOARD_KEY_700e3=leftmeta
+
 #70069
 #7006a
 # combo

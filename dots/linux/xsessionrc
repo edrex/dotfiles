@@ -4,14 +4,20 @@
 export XDG_CURRENT_DESKTOP=KDE
 
 #syndaemon -i 0.3 -KRd
-xrandr --dpi 288
-xinput set-prop 12 "libinput Tapping Enabled" 1
+xrandr --dpi 192
+# xrandr --dpi 288
 
-xmodmap ~/.xmodmap
+TP="DLL075B:01 06CB:76AF Touchpad"
+# https://wiki.archlinux.org/index.php/Libinput#Button_re-mapping
+# xinput list-props
+xinput set-prop $TP "libinput Tapping Enabled" 1
+
+# shouldn't need this with hwdb mapping
+# xmodmap ~/.xmodmap
 xrdb -merge ~/.Xresources
 
 # for xmonad + java apps
 export _JAVA_AWT_WM_NONREPARENTING=1
+redshift-gtk&
 nm-applet&
 qtpass&
-

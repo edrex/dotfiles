@@ -21,6 +21,7 @@ exec --no-startup-id nm-applet
 
 
 set $mod Mod4
+focus_on_window_activation focus
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -129,16 +130,27 @@ bindsym $mod+Shift+grave move scratchpad
 
 # workspace name variables
 # https://www.reddit.com/r/i3wm/comments/3ahq6u/naming_workspaces/cscr582/
+
 set $ws1 "1:code"
-set $ws2 "2:monitor"
-set $ws3 "3:notes"
-set $ws4 "4:web"
-set $ws5 "5:project"
-set $ws6 "6:web"
-set $ws7 "7:notes"
-set $ws8 "8:media"
-set $ws9 "9:config"
+# emacs for code.
+set $ws2 "2:mon"
+# process consoles, logs etc
+set $ws3 "3:dash"
+# a fixed set of work profile chrome windows
+set $ws4 "4:threads"
+# all new chrome windows from 1 open here
+set $ws8 "8:lobby"
+# social media, music, comics etc
+set $ws7 "7:wild"
+# space for wildcard project
+set $ws9 "9:journal"
+# always open journal files in this emacs window
 set $ws10 "10:sys"
+# system configuration console, emacs
+
+# research:
+# - can set project buffers to open in specific windows?
+# - can open chrome etc windows to desktop?
 
 # ruby workspace rename script:
 # http://userbound.com/blog/Naming-Workspaces-in-i3/
