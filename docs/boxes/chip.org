@@ -1,0 +1,14 @@
+* multihead
+xrandr --output eDP-1 --auto --output DP-1 --auto --scale 2x2 --pos 0x-2160
+* dots linking pseudocode
+** dots src dest
+*** !src exists exit
+*** src is file
+**** 
+*** src is dir?
+**** dest exists
+***** !dest is dir exit
+***** with src/* as name 
+****** dots src/name dest/name
+*** dest exists
+** 
