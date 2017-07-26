@@ -31,6 +31,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     rust
      haskell
      (shell :variables shell-default-shell 'multi-term)
      vimscript
@@ -349,12 +350,15 @@ you should place you code here."
   ;; (add-to-list 'purpose-user-mode-purposes '(protobuf-mode . edit))
   ;; (purpose-compile-user-configuration)
   ;; (add-to-list 'auto-mode-alist '("\\.tf$" . json-mode))
-  (defun org-mode-export-hook ()
-    (add-hook 'after-save-hook 'org-html-export-to-html t t))
-  (add-hook 'org-mode-hook #'org-mode-export-hook)
+  ;; TODO: I don't want this globally, but I'd like to be able to do it per-file to share my work journal with coworkers. How to?
+  ;; (defun org-mode-export-hook ()
+  ;;   (add-hook 'after-save-hook 'org-html-export-to-html t t))
+  ;; (add-hook 'org-mode-hook #'org-mode-export-hook)
   (global-git-commit-mode t)
 
   (setq-default
+   ;; don't prompt, just follow
+   vc-follow-symlinks t
    browse-url-browser-function 'browse-url-xdg-open
    evil-want-fine-undo t
    ;; js2-mode
@@ -381,12 +385,9 @@ you should place you code here."
   (setq org-capture-templates
         '(("t" "Todo" entry (file+headline "~/Documents/Org/Tasks.org" "Inbox")
            "* TODO %?\n  %i\n  %a")
-          ("j" "Journal" entry (file+datetree "~/Documents/Org/Journal.org")
-           "* %?\nEntered on %U\n  %i\n  %a")
-          ("T" "Work Task" entry (file+headline "~/Documents/Org/Work/Tasks.org" "Inbox")
-           "* TODO %?\n  %i\n  %a")
-          ("J" "Work Journal" entry (file+datetree "~/Documents/Org/Work/Journal.org")
-                                              "* %?\nEntered on %U\n  %i\n  %a")))
+          ("j" "Journal" entry (file+datetree "~/Documents/Org/Journal.org") "* %?")
+          ("w" "Work Journal" entry (file+datetree "~/Documents/Org/Work.org")
+           "* %?")))
   (setq org-agenda-files '("~/Documents/Org/Tasks.org"))
   (setq org-refile-targets '((org-agenda-files . (:maxlevel . 6))))
   ;;; scroll one line at a time (less "jumpy" than defaults)
@@ -485,7 +486,7 @@ you should place you code here."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (terraform-mode hcl-mode evil-unimpaired zeal-at-point yapfify yaml-mode xterm-color ws-butler winum which-key web-mode web-beautify volatile-highlights vimrc-mode vi-tilde-fringe uuidgen use-package toc-org tide typescript-mode tagedit spaceline powerline smeargle slim-mode shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe reveal-in-osx-finder restart-emacs rbenv rake rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode popwin pip-requirements persp-mode pcre2el pbcopy paradox spinner osx-trash osx-dictionary orgit org-projectile org-present org-pomodoro alert log4e gntp org-download org-bullets open-junk-file ob-elixir neotree multi-term move-text mmm-mode minitest markdown-toc markdown-mode magit-gitflow magit-gh-pulls macrostep lorem-ipsum livid-mode skewer-mode simple-httpd live-py-mode linum-relative link-hint less-css-mode launchctl json-snatcher js2-refactor multiple-cursors js-doc intero info+ indent-guide hy-mode hungry-delete htmlize hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make projectile helm-hoogle helm-gitignore request helm-flx helm-descbinds helm-dash helm-css-scss helm-company helm-c-yasnippet helm-ag haskell-snippets haml-mode google-translate golden-ratio go-guru go-eldoc gnuplot gitignore-mode github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gist gh marshal logito pcache ht gh-md fuzzy flycheck-pos-tip pos-tip flycheck-mix flycheck-haskell flycheck-elm flycheck-credo flycheck flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit magit-popup git-commit with-editor evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg eval-sexp-fu highlight eshell-z eshell-prompt-extras esh-help erlang emmet-mode elm-mode elisp-slime-nav dumb-jump diminish dactyl-mode cython-mode company-web web-completion-data company-tern dash-functional tern company-go go-mode company-ghci company-ghc ghc haskell-mode company-cabal company-anaconda column-enforce-mode cmm-mode clean-aindent-mode chruby bundler inf-ruby bind-map bind-key auto-yasnippet auto-highlight-symbol auto-compile packed anaconda-mode pythonic f alchemist s dash elixir-mode pkg-info epl ace-link ace-jump-helm-line helm helm-core ac-ispell auto-complete popup yasnippet undo-tree org-plus-contrib json-mode js2-mode hydra diff-hl csv-mode company-statistics company coffee-mode async aggressive-indent adaptive-wrap ace-window avy))))
+    (toml-mode racer flycheck-rust seq cargo rust-mode terraform-mode hcl-mode evil-unimpaired zeal-at-point yapfify yaml-mode xterm-color ws-butler winum which-key web-mode web-beautify volatile-highlights vimrc-mode vi-tilde-fringe uuidgen use-package toc-org tide typescript-mode tagedit spaceline powerline smeargle slim-mode shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe reveal-in-osx-finder restart-emacs rbenv rake rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode popwin pip-requirements persp-mode pcre2el pbcopy paradox spinner osx-trash osx-dictionary orgit org-projectile org-present org-pomodoro alert log4e gntp org-download org-bullets open-junk-file ob-elixir neotree multi-term move-text mmm-mode minitest markdown-toc markdown-mode magit-gitflow magit-gh-pulls macrostep lorem-ipsum livid-mode skewer-mode simple-httpd live-py-mode linum-relative link-hint less-css-mode launchctl json-snatcher js2-refactor multiple-cursors js-doc intero info+ indent-guide hy-mode hungry-delete htmlize hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make projectile helm-hoogle helm-gitignore request helm-flx helm-descbinds helm-dash helm-css-scss helm-company helm-c-yasnippet helm-ag haskell-snippets haml-mode google-translate golden-ratio go-guru go-eldoc gnuplot gitignore-mode github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gist gh marshal logito pcache ht gh-md fuzzy flycheck-pos-tip pos-tip flycheck-mix flycheck-haskell flycheck-elm flycheck-credo flycheck flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit magit-popup git-commit with-editor evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg eval-sexp-fu highlight eshell-z eshell-prompt-extras esh-help erlang emmet-mode elm-mode elisp-slime-nav dumb-jump diminish dactyl-mode cython-mode company-web web-completion-data company-tern dash-functional tern company-go go-mode company-ghci company-ghc ghc haskell-mode company-cabal company-anaconda column-enforce-mode cmm-mode clean-aindent-mode chruby bundler inf-ruby bind-map bind-key auto-yasnippet auto-highlight-symbol auto-compile packed anaconda-mode pythonic f alchemist s dash elixir-mode pkg-info epl ace-link ace-jump-helm-line helm helm-core ac-ispell auto-complete popup yasnippet undo-tree org-plus-contrib json-mode js2-mode hydra diff-hl csv-mode company-statistics company coffee-mode async aggressive-indent adaptive-wrap ace-window avy))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

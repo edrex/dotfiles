@@ -24,11 +24,12 @@ popd
 ok directory ~/.tmp
 
 ok directory "$HOME/.ssh"
-ok check "[ -e $HOME/.ssh/*.pub ]"
-if check_failed && satisfying; then
-    echo "Generating SSH Key"
-    ssh-keygen -t rsa
-fi
+# this doesn't work if there's more than one match
+# ok check "[ -e $HOME/.ssh/*.pub ]"
+# if check_failed && satisfying; then
+#     echo "Generating SSH Key"
+#     ssh-keygen -t rsa
+# fi
 
 cd $HOME
 ok symlink .password-store Documents/.password-store
@@ -114,11 +115,13 @@ register types/shells.sh
 ok shells $(which zsh)
 ok loginshell $(which zsh)
 
-ok github $HOME/.oh-my-zsh robbyrussell/oh-my-zsh
+# TODO: https://github.com/sorin-ionescu/prezto
+# needs submodule init
+# ok github $HOME/.oh-my-zsh robbyrussell/oh-my-zsh
 
 #ok check "[ -d $HOME/.emacs.d ]"
 #if check_failed && satisfying; then
-    ok github $HOME/.emacs.d syl20bnr/spacemacs
+    # ok github $HOME/.emacs.d syl20bnr/spacemacs
 #fi
 
 

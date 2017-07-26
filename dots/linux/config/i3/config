@@ -13,8 +13,17 @@
 
 #exec_always --no-startup-id compton --config ~/.config/compton/compton.conf -b
 # exec --no-startup-id feh --bg-scale /home/username/Pictures/line.jpg
+exec --no-startup-id xrandr --dpi 96
+
+set $tp "DLL075B:01 06CB:76AF Touchpad"
+exec --no-startup-id xinput set-prop $TP "libinput Tapping Enabled" 1
+
+exec --no-startup-id xrdb -merge ~/.Xresources
 exec --no-startup-id xsetroot -solid "#002244"
 exec --no-startup-id nm-applet
+exec --no-startup-id redshift-gtk
+exec --no-startup-id qtpass
+exec --no-startup-id sleep 3 && xfce4-power-manager
 # exec --no-startup-id mpd
 # exec --no-startup-id albert
 # exec --no-startup-id dmenu --daemon

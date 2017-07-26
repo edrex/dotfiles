@@ -18,6 +18,8 @@ xrdb -merge ~/.Xresources
 
 # for xmonad + java apps
 export _JAVA_AWT_WM_NONREPARENTING=1
-redshift-gtk&
+# redshift is having probs with geoclue
+# using sct manually for now
+# redshift-gtk&
 nm-applet&
 qtpass&
