@@ -1,0 +1,3 @@
+#!/bin/sh
+
+web --basedir ~/.config/qutebrowser-sixgill "$@"

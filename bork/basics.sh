@@ -119,6 +119,7 @@ ok loginshell $(which zsh)
 # needs submodule init
 # ok github $HOME/.oh-my-zsh robbyrussell/oh-my-zsh
 
+ok github $HOME/src/github.com/zsh-users/antigen zsh-users/antigen
 #ok check "[ -d $HOME/.emacs.d ]"
 #if check_failed && satisfying; then
     # ok github $HOME/.emacs.d syl20bnr/spacemacs
