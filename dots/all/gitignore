@@ -4,4 +4,4 @@
 *.o
 .rvmrc
 .tags*
-
+\#%2Adotfile-test-results%2A*

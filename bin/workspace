@@ -27,6 +27,10 @@ set)  echo "set $2"
                   ;;
       coagcorner) xrandr --output eDP-1 --auto --primary --pos 0x0 --output DP-1 --auto --pos 3200x0 --scale-from 3840x2160 --panning 3840x2160+3200+0 
                   ;;
+      sm2x4k) xrandr --output eDP-1 --auto --pos 0x0 --primary --output DP-2 --auto --pos -2240x-2160 --output DP-1 --auto --pos 1600x-2160
+                  ;;
+      sm2x4kswap) xrandr --output eDP-1 --auto --pos 0x0 --primary --output DP-1 --auto --pos -2240x-2160 --output DP-2 --auto --pos 1600x-2160
+              ;;
       *) echo "no such profile, $2"
                   ;;
   esac

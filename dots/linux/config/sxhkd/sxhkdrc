@@ -1,2 +1,4 @@
 ctrl + b
      i3-msg bar mode toggle
+Alt_R ; a : {a-z}
+  echo "altr a {a-z}"

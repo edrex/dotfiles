@@ -6,7 +6,7 @@
 	name = Eric Drechsel
 	email = eric@pdxhub.org
 [core]
-	excludesfile = /Users/eric/.gitignore
+	excludesfile = ~/.gitignore
 	precomposeUnicode = false
   editor=emacsclient -c 
 [alias]
