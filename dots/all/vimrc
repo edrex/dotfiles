@@ -4,6 +4,8 @@ set backupdir=~/.tmp
 set nocompatible               " be iMproved
 
 call plug#begin('~/.vim/plugged')
+  Plug 'jceb/vim-orgmode'
+  Plug 'tpope/vim-speeddating'
 " Plug 'tpope/vim-fugitive'
 " Plug 'L9'
 " Plug 'JavaScript-Indent'
@@ -14,7 +16,7 @@ call plug#begin('~/.vim/plugged')
 " Plug 'mileszs/ack.vim'
 " Plug 'ZoomWin'
 " Plug 'rson/vim-conque'
-Plug 'jamessan/vim-gnupg'
+  Plug 'jamessan/vim-gnupg'
 
 call plug#end()
 
@@ -26,6 +28,8 @@ set mouse=a
 set ttymouse=xterm2
 syntax on
 
+" https://askubuntu.com/questions/60200/how-to-copy-data-between-different-instances-of-vim
+set clipboard=unnamedplus
 set background=dark
 
 " switch to existing buffer in nerdtree

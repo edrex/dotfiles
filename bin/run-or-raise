@@ -1,0 +1,14 @@
+#!/bin/sh
+# Based on https://faq.i3wm.org/question/2473/run-or-focus-in-i3.1.html 
+# https://faq.i3wm.org/question/954/open-window-as-a-scratchpad/index.html
+
+# If class isn't passed, default to capitalized CMD.
+CMD=${1}
+CLS=${2:-$(echo -n "${CMD:0:1}" | tr "[:lower:]" "[:upper:]")${CMD:1}}
+
+count=$(i3-msg -t get_tree | jq '[recurse(.nodes[]).window_properties | select(.class == "{CLS}")] | length')
+if [ $count -eq 0 ]; then
+    i3-msg exec $CMD
+else
+    i3-msg "[class=$CLS] focus"
+fi

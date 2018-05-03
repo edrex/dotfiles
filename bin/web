@@ -1,3 +1,5 @@
 #!/bin/sh
 
-QT_AUTO_SCREEN_SCALE_FACTOR=1 qutebrowser --backend webengine "$@"
+#QT_AUTO_SCREEN_SCALE_FACTOR=1
+qutebrowser
+#--backend webengine "$@"

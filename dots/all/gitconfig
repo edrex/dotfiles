@@ -6,7 +6,7 @@
 	name = Eric Drechsel
 	email = eric@pdxhub.org
 [core]
-	excludesfile = ~/.gitignore
+	excludesfile = ~/.gitignore_global
 	precomposeUnicode = false
   editor=emacsclient -c 
 [alias]
@@ -48,3 +48,5 @@
 [github]
 	user = edrex
 	oauth-token = ba2097d6603cbc5f7e5675c02845565e8bdb88a1
+[http]
+	cookiefile = /home/eric/.gitcookies

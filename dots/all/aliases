@@ -1,5 +1,10 @@
-alias e="emacsclient -ct"
+alias v='f -e vim' # quick opening files with vim
+alias o='a -e xdg-open' # quick opening files with xdg-open
+
+alias e="f -e vim"
 alias ew="emacsclient -nc"
-alias vim=e
-alias vimm=/usr/bin/vim
 alias bs='bork satisfy $DOTFILES/bork/basics.sh'
+
+HOMEREPO=$MYSRCPATH/home
+alias hgit='git --work-tree=$HOME --git-dir=$HOMEREPO/.git'
+
