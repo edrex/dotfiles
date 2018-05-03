@@ -1,6 +1,7 @@
 export PATH=$HOME/bin:$HOME/.npm/bin:/Applications/Emacs.app/Contents/MacOS/bin:$PATH
 export SRCPATH=$HOME/src # where external source repositories get checked out
 export MYSRCPATH=$SRCPATH/github.com/edrex
+export HOMEREPO=$MYSRCPATH/dotfiles
 export GOPATH=$HOME
 export GOROOT="$(go env GOROOT)"
 export EDITOR=vim

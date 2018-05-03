@@ -5,6 +5,5 @@ alias e="f -e vim"
 alias ew="emacsclient -nc"
 alias bs='bork satisfy $DOTFILES/bork/basics.sh'
 
-HOMEREPO=$MYSRCPATH/home
 alias hgit='git --work-tree=$HOME --git-dir=$HOMEREPO/.git'
 

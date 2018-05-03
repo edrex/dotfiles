@@ -1,5 +1,7 @@
-xmonad.errors
-*.o
-*~
-xmonad-x86_64-linux
-/dots/linux/xmonad/xmonad.hi
+tmp
+src
+pkg
+Desktop
+Documents
+Pictures
+
