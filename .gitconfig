@@ -8,11 +8,6 @@
 [core]
 	excludesfile = ~/.gitignore_global
 	precomposeUnicode = false
-  editor=emacsclient -c 
-[alias]
-	up = !git upbase && git state
-[include]
-	path = ~/.dotfiles/general/gitconfig
 [push]
   default = tracking
 [merge]
