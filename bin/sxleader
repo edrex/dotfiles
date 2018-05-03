@@ -1,0 +1,10 @@
+#!/bin/sh
+
+C=$HOME/.config/sxhkd/sxleaderrc
+cat > $C <<EOF
+@$1
+	i3-msg mode "$2"
+EOF
+pkill -u $UID sxhkd
+sxhkd -c $C
+

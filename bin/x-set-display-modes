@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# xrandr --dpi 192
+# xrandr --dpi 288
+
+# cvt <x> <y> 60
+xrandr --newmode "1920x1080"  173.00  1920 2048 2248 2576  1080 1083 1088 1120 -hsync +vsync
+xrandr --newmode "2400x1350"  272.50  2400 2568 2824 3248  1350 1353 1358 1400 -hsync +vsync
+# 1600x900 59.95 Hz (CVT 1.44M9) hsync: 55.99 kHz; pclk: 118.25 MHz
+xrandr --newmode "1600x900"  118.25  1600 1696 1856 2112  900 903 908 934 -hsync +vsync
+
+xrandr --addmode eDP-1 "1600x900" 
+xrandr --addmode eDP-1 "2400x1350" 
+xrandr --output eDP-1 --mode "1600x900"
+

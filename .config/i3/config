@@ -1,7 +1,7 @@
 # i3 config file (v4)
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
-exec --no-startup-id setmodes
+exec --no-startup-id x-set-display-modes
 
 set $tp "DLL075B:01 06CB:76AF Touchpad"
 exec --no-startup-id xinput set-prop $TP "libinput Tapping Enabled" 1
