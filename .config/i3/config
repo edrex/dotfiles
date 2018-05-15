@@ -42,8 +42,8 @@ bindsym $mod+Shift+Return exec qutebrowser --target tab
 # kill focused window
 bindsym $mod+Shift+c kill
 
-bindsym $mod+Shift+d exec "rofi -combi-modi window,drun -show combi -modi combi -font pango:monospace\ 16"
-bindsym $mod+d exec "rofi -show run -font pango:monospace\ 16"
+bindsym $mod+d exec "rofi -combi-modi window,ssh,drun,run -show combi -modi combi"
+bindsym $mod+Shift+d exec "rofi -show run"
 bindsym $mod+b bar mode toggle
 
 # targets currently active output
@@ -126,7 +126,7 @@ set $ws3 "3:dash"
 # a fixed set of work profile chrome windows
 set $ws4 "4:threads"
 # all new chrome windows from 1 open here
-set $ws8 "8:lobby"cp -r /usr/lib/fwupdate/EFI
+set $ws8 "8:lobby"
 # social media, music, comics etc
 set $ws7 "7:wild"
 # space for wildcard project
