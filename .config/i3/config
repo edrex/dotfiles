@@ -42,7 +42,8 @@ bindsym $mod+Shift+Return exec qutebrowser --target tab
 # kill focused window
 bindsym $mod+Shift+c kill
 
-bindsym $mod+d exec "rofi -combi-modi window,ssh,drun,run -show combi -modi combi"
+
+bindsym $mod+space exec "rofi -combi-modi window,ssh,drun,run -show combi -modi combi"
 bindsym $mod+Shift+d exec "rofi -show run"
 bindsym $mod+b bar mode toggle
 
@@ -104,7 +105,7 @@ bindsym $mod+e layout toggle split
 bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+bindsym $mod+z focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -125,10 +126,12 @@ set $ws2 "2:mon"
 set $ws3 "3:dash"
 # a fixed set of work profile chrome windows
 set $ws4 "4:threads"
-# all new chrome windows from 1 open here
-set $ws8 "8:lobby"
+set $ws5 "5:hi"
+set $ws6 "6:hello"
 # social media, music, comics etc
 set $ws7 "7:wild"
+# all new chrome windows from 1 open here
+set $ws8 "8:lobby"
 # space for wildcard project
 set $ws9 "9:journal"
 # always open journal files in this emacs window
@@ -268,6 +271,20 @@ mode $sysmenu {
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        # status_command i3blocks
+  # status_command i3blocks
         status_command i3status
+  colors {
+    separator #666666
+    background #000000
+    statusline #ffffff
+    focused_workspace #551a8b #551a8b #ffffff
+    active_workspace #333333 #5f676a #ffffff
+    inactive_workspace #000000 #000000 #888888
+    urgent_workspace #2f343a #900000 #ffffff
+  }
 }
+
+client.focused #3b1261 #3b1261 #ffffff #662b9c
+client.focused_inactive #333333 #5f676a #ffffff #484e50
+client.unfocused #222222 #222222 #888888 #292d2e
+client.urgent #2f343a #900000 #ffffff #900000

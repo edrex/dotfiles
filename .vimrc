@@ -2,10 +2,12 @@ let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 set dir=~/.tmp
 set backupdir=~/.tmp
 set nocompatible               " be iMproved
+set autowrite				" autosave current on :make (also used by vim-go)
 
 call plug#begin('~/.vim/plugged')
   Plug 'jceb/vim-orgmode'
   Plug 'tpope/vim-speeddating'
+	Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " Plug 'tpope/vim-fugitive'
 " Plug 'L9'
 " Plug 'JavaScript-Indent'
