@@ -253,7 +253,7 @@ mode $audiomenu {
 
 set $configmenu "config:  [e]dit [r]eload"
 mode $configmenu {
-    bindsym e         exec i3-sensible-terminal -e i3-sensible-editor ~/.config/i3/config ; mode "default"
+    bindsym e         exec i3-sensible-terminal -e "i3-sensible-editor $HOME/.config/i3/config" ; mode "default"
     bindsym r					restart
     bindsym Escape    mode "default"
 }

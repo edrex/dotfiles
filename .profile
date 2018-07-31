@@ -5,11 +5,15 @@ export HOMEREPO=$MYSRCPATH/dotfiles
 export GOPATH=$HOME
 export GOROOT="$(go env GOROOT)"
 export EDITOR=vim
-
+export TERMINAL=termite
 # somehow this makes emacs daemon start automatically if not already
 # https://stackoverflow.com/questions/5570451/how-to-start-emacs-server-only-if-it-is-not-started
 export ALTERNATE_EDITOR=""
 
+source $HOME/.nix-profile/etc/profile.d/nix.sh
+# Default value from
+# https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
+export XDG_DATA_DIRS=$HOME/.nix-profile/share:$HOME/.share:"${XDG_DATA_DIRS:-/usr/local/share/:/usr/share/}"
 source ~/.aliases
 
 # Start fasd

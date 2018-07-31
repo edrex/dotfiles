@@ -6,4 +6,4 @@ alias ew="emacsclient -nc"
 alias bs='bork satisfy $DOTFILES/bork/basics.sh'
 
 alias hgit='git --work-tree=$HOME --git-dir=$HOMEREPO/.git'
-
+alias d='date +%Y-%m-%d'

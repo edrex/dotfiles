@@ -8,6 +8,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'jceb/vim-orgmode'
   Plug 'tpope/vim-speeddating'
 	Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+	Plug 'jreybert/vimagit'
 " Plug 'tpope/vim-fugitive'
 " Plug 'L9'
 " Plug 'JavaScript-Indent'
