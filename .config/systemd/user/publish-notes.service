@@ -1,0 +1,4 @@
+[Unit]
+Description=Publish Notes
+[Service]
+ExecStart=/home/eric/bin/publish-notes

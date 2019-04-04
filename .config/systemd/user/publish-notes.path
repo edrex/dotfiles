@@ -1,0 +1,9 @@
+[Unit] 
+Description=Zim Notes Path
+[Path]
+PathModified=/home/eric/Notebooks/Notes/.git/refs/heads/master
+
+
+[Install]
+WantedBy=multi-user.target
+
