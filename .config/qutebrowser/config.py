@@ -88,3 +88,4 @@ c.zoom.default = '100%'
 # Bindings for normal mode
 config.bind(',p', 'spawn --userscript password_fill {url}')
 config.bind(',v', 'spawn mpv {url}')
+#config.unbind('ctrl+v')

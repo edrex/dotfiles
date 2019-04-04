@@ -37,7 +37,12 @@ floating_modifier $mod
 bindsym $mod+Return exec i3-sensible-terminal
 set 
 bindsym $mod+n exec run-or-raise zim
-bindsym $mod+Shift+Return exec qutebrowser --target tab
+
+
+# changeme:firefox awesome bar or dmenu history
+bindsym $mod+Shift+Return exec i3-sensible-browser
+bindsym $mod+p exec passmenu
+
 
 # kill focused window
 bindsym $mod+Shift+c kill
@@ -49,9 +54,9 @@ bindsym $mod+b bar mode toggle
 
 # targets currently active output
 # http://blog.kopis.de/2015/07/21/changing-volume-using-pactl/
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume $(pactl list short sinks|grep RUNNING|awk '{print $1}') +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume $(pactl list short sinks|grep RUNNING|awk '{print $1}') -5% #decrease sound volume
-bindsym XF86AudioMute exec pactl set-sink-mute $(pactl list short sinks|grep RUNNING|awk '{print $1}') toggle # mute sound
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume $(pactl list short sinks|head -n 1|grep RUNNING|awk '{print $1}') +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume $(pactl list short sinks|head -n 1|grep RUNNING|awk '{print $1}') -5% #decrease sound volume
+bindsym XF86AudioMute exec pactl set-sink-mute $(pactl list short sinks|head -n 1|grep RUNNING|awk '{print $1}') toggle # mute sound
 
 # Screen brightness controls
 bindsym XF86MonBrightnessUp exec light -A 20 # increase screen brightness

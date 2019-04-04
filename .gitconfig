@@ -8,6 +8,8 @@
 [core]
 	excludesfile = ~/.gitignore_global
 	precomposeUnicode = false
+	autocrlf = false
+	filemode = false
 [push]
   default = tracking
 [merge]
@@ -45,3 +47,9 @@
 	oauth-token = ba2097d6603cbc5f7e5675c02845565e8bdb88a1
 [http]
 	cookiefile = /home/eric/.gitcookies
+[magithub]
+	online = false
+[magithub "status"]
+	includeStatusHeader = false
+	includePullRequestsSection = false
+	includeIssuesSection = false

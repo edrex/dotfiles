@@ -1,4 +1,4 @@
-export PATH=$HOME/bin:$HOME/.npm/bin:/Applications/Emacs.app/Contents/MacOS/bin:$PATH
+export PATH=$HOME/bin:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.npm/bin:$PATH
 export SRCPATH=$HOME/src # where external source repositories get checked out
 export MYSRCPATH=$SRCPATH/github.com/edrex
 export HOMEREPO=$MYSRCPATH/dotfiles
