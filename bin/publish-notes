@@ -1,0 +1,9 @@
+#!/bin/sh
+
+EXPORT_DIR=$HOME/Sites/Notes
+cd $EXPORT_DIR \
+&& zim --export --output=./ --index-page=index --overwrite ~/Notebooks/Notes \
+&& git add . \
+&& git commit -m "publish-notes" \
+&& git push
+
