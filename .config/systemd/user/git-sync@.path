@@ -1,0 +1,9 @@
+[Unit] 
+Description=Git Sync Path: %I
+[Path]
+PathModified=%h/%I/.git/refs/heads
+
+
+[Install]
+WantedBy=multi-user.target
+

@@ -1,0 +1,6 @@
+[Unit]
+Description=Git Sync: %I
+[Service]
+Type=oneshot
+WorkingDirectory=%h/%I
+ExecStart=%h/bin/git-sync
