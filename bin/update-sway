@@ -1,0 +1,16 @@
+cd ~/src/github.com/swaywm/wlroots \
+&& git pull \
+&& meson build \
+&& ninja -C build \
+&& sudo ninja -C build install \
+&& cd ~/src/github.com/swaywm/sway \
+&& git pull \
+&& meson build -Denable-tray=true \
+&& ninja -C build \
+&& sudo ninja -C build install \
+&& cd ~/src/github.com/bugaevc/wl-clipboard \
+&& git pull \
+&& meson build \
+&& ninja -C build \
+&& sudo ninja -C build install
+

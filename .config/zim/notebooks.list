@@ -1,22 +1,29 @@
 [NotebookList]
 Default=~/Notebooks/Notes
-1=~/Notebooks/Notes
-2=~/Notebooks/Website
-3=~/Notebooks/CollabLoviEric
+1=~/Notebooks/Website
+2=~/Notebooks/Private
+3=~/Notebooks/Notes
+4=~/Notebooks/CollabLoviEric
 
 [Notebook 1]
-uri=~/Notebooks/Notes
-name=Notes
-interwiki=None
-icon=None
-
-[Notebook 2]
 uri=~/Notebooks/Website
 name=Website
 interwiki=None
 icon=None
 
+[Notebook 2]
+uri=~/Notebooks/Private
+name=Private
+interwiki=None
+icon=None
+
 [Notebook 3]
+uri=~/Notebooks/Notes
+name=Notes
+interwiki=None
+icon=None
+
+[Notebook 4]
 uri=~/Notebooks/CollabLoviEric
 name=CollabLoviEric
 interwiki=None

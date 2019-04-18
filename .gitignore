@@ -1,8 +1,9 @@
-*
+#*
 tmp
 src
 pkg
 Desktop
 Documents
 Pictures
-
+!/bin
+!/bin/
