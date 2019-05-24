@@ -1,0 +1,52 @@
+#!/usr/bin/env python3
+
+import argparse
+from subprocess import Popen, run, PIPE
+import datetime
+import os
+
+parser = argparse.ArgumentParser(description="Open an editor on today's journal file.")
+parser.add_argument("subject", nargs='?', help="optional subject for the entry")
+parser.add_argument('-f', '--feels', action='store_true', help="put this entry in the auxilliary \"feels\" journal")
+parser.add_argument('-l', '--list', action='store_true', help="interactively select a recent entry to edit, using dmenu")
+
+if __name__ == '__main__':
+    args = parser.parse_args()
+    base_dir = os.path.expanduser("~/Documents/")
+    journal_dir = base_dir + ("Feels " if args.feels else "") + "Journal/"
+
+    if args.list:
+        ls = Popen(["ls", "-t", journal_dir], stdout=PIPE)
+        dmenu = Popen(["dmenu"], stdin=ls.stdout, stdout=PIPE, encoding="utf8")
+        ls.stdout.close()
+        f = dmenu.communicate()[0].strip()
+        if f == '':
+            print("no selection")
+            exit()
+        target = journal_dir + f
+    else:
+        base = datetime.datetime.today().strftime('%Y-%m-%d')
+        if args.subject:
+            base += "-" + args.subject
+        target = journal_dir + base + ".md"
+
+    # this template implementation has two bugs:
+    # - buffer starts out dirty
+    # - if file already exists, this still replaces the buffer contents with template
+
+    # template_name = "_template.md"
+    # try:
+    #     template_file = open(journal_dir + template_name, 'rb')
+    # except:
+    #     template_file=None #
+    #     https://superuser.com/questions/421367/read-from-stdin-to-new-named-file-in-vim#comment482233_421371
+    #     subprocess.run(["vim", '/dev/stdin', "+file
+    #     "+journal_dir+base+".md"], stdin=template_file)    
+
+    # TODO: rewrite template implementation
+    # - copy template to filename
+    # - on editor exit, remove file if unchanged from template
+    # This way, it will work with any editor, and the buffer won't be dirty at start.
+
+    run(["vim", target, '+Goyo'])    
+    

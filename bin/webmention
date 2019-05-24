@@ -1,0 +1,32 @@
+#!/bin/sh
+
+GO=false
+
+while getopts ":g" opt; do
+  case $opt in
+    a)
+      echo "Going, because -g" >&2
+			GO=true
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      ;;
+  esac
+done
+shift "$((OPTIND-1))"   # Discard the options and sentinel --
+
+mentioning_url=$1
+mentioned_url=$2
+echo "Mentioning URL is: $mentioning_url"
+echo "Checking $mentioned_url for webmention endpoint"
+webmention_url=$(curl -i -s $mentioned_url | grep 'rel="http://webmention.org/"' | sed 's/rel="webmention"//' | grep -o -E 'https?://[^ ">]+' | sort | uniq)
+if test -z $webmention_url; then
+	echo "Webmention URL not found"
+	exit
+fi
+
+echo "Found webmention URL '$webmention_url'"
+if $GO; then
+	curl -i -d "source=$mentioning_url&target=$mentioned_url" $webmention_url
+fi
+

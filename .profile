@@ -2,6 +2,7 @@ export PATH=$HOME/bin:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.npm/bin:$PATH
 export SRCPATH=$HOME/src # where external source repositories get checked out
 export MYSRCPATH=$SRCPATH/github.com/edrex
 export HOMEREPO=$MYSRCPATH/dotfiles
+export ETCREPO=$MYSRCPATH/etc
 export GOPATH=$HOME
 export GOROOT="$(go env GOROOT)"
 export EDITOR=vim

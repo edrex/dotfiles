@@ -11,6 +11,7 @@ call plug#begin('~/.vim/plugged')
 	Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 	Plug 'jreybert/vimagit'
 	Plug 'junegunn/goyo.vim'
+	Plug 'vimwiki/vimwiki'
 
 " Plug 'tpope/vim-fugitive'
 " Plug 'L9'
@@ -26,6 +27,8 @@ call plug#begin('~/.vim/plugged')
 
 call plug#end()
 
+let g:vimwiki_list = [{'path': '~/vimwiki/',
+                      \ 'syntax': 'markdown', 'ext': '.markdown'}]
 set tabstop=2
 set shiftwidth=2
 set noexpandtab
