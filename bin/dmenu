@@ -1,2 +1,4 @@
 #!/bin/sh
 rofi -dmenu $@
+
+#dmenu-wl $@
