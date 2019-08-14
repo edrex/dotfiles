@@ -2,15 +2,10 @@
 
 # cancel if no selection
 GEOM=$(slurp) || exit $?
-TMP=$(mktemp -d) || exit $?
 
 export LIBVA_DRIVER_NAME=iHD
 OUTPUT="eDP-1"
-CAP=$TMP/cap.mkv
-PAL=$TMP/pal.png
-GIF=$HOME/Pictures/Screencap-$(date +%Y-%M-%d-%R:%S).gif
+CAP=$HOME/Pictures/Screencap-$(date +%Y-%M-%d-%R:%S).mkv
 
-cd $TMP
-wf-recorder -f $CAP -g "${GEOM}" -c h264_vaapi -d /dev/dri/renderD128 -o $OUTPUT && \
-vid2gif $CAP $GIF
-echo $GIF
+wf-recorder -f $CAP -g "${GEOM}" -d /dev/dri/renderD128 -o $OUTPUT && \
+echo $CAP
