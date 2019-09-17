@@ -16,10 +16,6 @@ source $HOME/.nix-profile/etc/profile.d/nix.sh
 # Default value from
 # https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
 export XDG_DATA_DIRS=$HOME/.nix-profile/share:$HOME/.share:"${XDG_DATA_DIRS:-/usr/local/share/:/usr/share/}"
-source ~/.aliases
-
-# Start fasd
-eval "$(fasd --init auto)"
 
 # Start the gpg-agent if not already running
 # if ! pgrep -x -u "${USER}" gpg-agent >/dev/null 2>&1; then

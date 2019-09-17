@@ -6,7 +6,9 @@ import datetime
 import os
 
 parser = argparse.ArgumentParser(description="Open an editor on today's journal file.")
-parser.add_argument("subject", nargs='?', help="optional subject for the entry")
+group = parser.add_mutually_exclusive_group()
+group.add_argument("subject", nargs='?', help="optional subject for the entry")
+group.add_argument("-p", '--prompt', action='store_true', help="prompt for subject")
 parser.add_argument('-f', '--feels', action='store_true', help="put this entry in the auxilliary \"feels\" journal")
 group = parser.add_mutually_exclusive_group()
 group.add_argument('-l', '--list', action='store_true', help="interactively select a recent entry to edit")
@@ -31,8 +33,11 @@ if __name__ == '__main__':
         target = ls.stdout.readline().decode().rstrip()
     else:
         base = datetime.datetime.today().strftime('%Y-%m-%d')
-        if args.subject:
-            base += "-" + args.subject
+        subject = args.subject
+        if args.prompt:
+            subject = input("what is this entry about? ")
+        if subject:
+            base += "-" + subject
         target = base + ".md"
 
     # this template implementation has two bugs:

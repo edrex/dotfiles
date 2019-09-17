@@ -14,8 +14,8 @@ set $menu  "rofi -combi-modi window,ssh,drun,run -show combi -modi combi"
 set $winmenu "i3-windows-and-run"
 
 #assign [title="journal"] 8
-#bindsym $mod+Mod1+j exec $term -e journal
-#bindsym $mod+Shift+f exec $term -e "journal -f"
+bindsym $mod+i exec $term -e "journal -p" 
+bindsym $mod+Shift+i exec $term -e "journal -pf"
 bindsym $mod+Ctrl+s exec $term -e "screencap"
 bindsym $mod+n exec "networkmanager_dmenu"
 

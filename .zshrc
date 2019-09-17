@@ -1,3 +1,7 @@
+source ~/.aliases
+# Start fasd
+eval "$(fasd --init auto)"
+
 ANTIGEN_PATH=$HOME/src/github.com/zsh-users/antigen
 source $ANTIGEN_PATH/antigen.zsh
 
