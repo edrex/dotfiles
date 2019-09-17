@@ -1,9 +1,12 @@
 alias v='f -e vim' # quick opening files with vim
 alias o='a -e xdg-open' # quick opening files with xdg-open
+alias t='task'
+alias ti='timew'
 
 alias e="f -e vim"
 alias ew="emacsclient -nc"
 alias bs='bork satisfy $DOTFILES/bork/basics.sh'
+alias pb="curl -F 'clbin=<-' https://clbin.com"
 
 alias hgit='git --work-tree=$HOME --git-dir=$HOMEREPO/.git'
 alias egit='git --work-tree=/etc --git-dir=$ETCREPO/.git'
