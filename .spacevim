@@ -1,0 +1,109 @@
+" Comment the following line if you don't want Vim and NeoVim to share the
+" same plugin download directory.
+let g:spacevim_plug_home = '~/.vim/plugged'
+
+" Uncomment the following line to override the leader key. The default value is space key "<\Space>".
+" let g:spacevim_leader = "<\Space>"
+
+" Uncomment the following line to override the local leader key. The default value is comma ','.
+" let g:spacevim_localleader = ','
+
+" Enable the existing layers in space-vim.
+" Refer to https://github.com/liuchengxu/space-vim/blob/master/layers/LAYERS.md for all available layers.
+let g:spacevim_layers = [
+			\ 'fzf', 'better-defaults', 'which-key', 'spacevim', 'goyo', 'git', 'github', 'lightline', 'markdown', 'python'
+			\ , 'lsp', 'editing', 'formatting', 'programming'
+			\ ]
+
+" Uncomment the following line if your terminal(-emulator) supports true colors.
+let g:spacevim_enable_true_color = 1
+let g:spacevim_lsp_engine = 'coc'
+" Uncomment the following if you have some nerd font installed.
+let g:spacevim_nerd_fonts = 1
+let g:spacevim_excluded = ['dominikduda/vim_current_word']
+" If you want to have more control over the layer, try using Layer command.
+" if g:spacevim.gui
+"   Layer 'airline'
+" endif
+
+" Manage your own plugins.
+" Refer to https://github.com/junegunn/vim-plug for more detials.
+function! UserInit()
+
+	" Add your own plugin via Plug command.
+	"  Plug 'junegunn/seoul256.vim'
+	Plug 'ipod825/vim-netranger'
+	Plug 'ajmwagar/vim-deus'
+endfunction
+
+" Override the default settings from space-vim as well as adding extras
+function! UserConfig()
+	colorscheme deus
+	highlight Normal guibg=black
+	hi EndOfBuffer guifg=bg
+	" Override the default settings.
+	" Uncomment the following line to disable relative number.
+	" set norelativenumber
+
+	" Adding extras.
+	" Uncomment the following line If you have installed the powerline fonts.
+	" It is good for airline layer.
+	let g:airline_powerline_fonts = 1
+	set wrap
+	set linebreak
+	set nolist
+	set mouse=a
+	set tabstop=2
+	set shiftwidth=2
+	set noexpandtab
+	" set clipboard=unnamedplus
+	set undofile                " Save undo's after file closes
+	set undolevels=1000         " How many undos
+	set undoreload=10000        " number of lines to save for undo
+
+	set autowriteall				" autosave current on :make (also used by vim-go)
+	" write buffer when focus lost, no error for untitled
+	" https://vim.fandom.com/wiki/Auto_save_files_when_focus_is_lost
+	au FocusLost * silent! wa
+endfunction
+
+" Wayland clipboard provider that strips carriage returns (GTK3 issue).
+" This is needed because currently there's an issue where GTK3 applications on
+" Wayland contain carriage returns at the end of the lines (this is a root
+" issue that needs to be fixed).
+let g:clipboard = {
+      \   'name': 'wayland-strip-carriage',
+      \   'copy': {
+      \      '+': 'wl-copy --foreground --type text/plain',
+      \      '*': 'wl-copy --foreground --type text/plain --primary',
+      \    },
+      \   'paste': {
+      \      '+': {-> systemlist('wl-paste --no-newline | tr -d "\r"')},
+      \      '*': {-> systemlist('wl-paste --no-newline --primary | tr -d "\r"')},
+      \   },
+      \   'cache_enabled': 1,
+      \ }
+
+function! s:goyo_enter()
+	let b:quitting = 0
+	let b:quitting_bang = 0
+	autocmd QuitPre <buffer> let b:quitting = 1
+	cabbrev <buffer> q! let b:quitting_bang = 1 <bar> q!
+	hi NonText guifg=bg
+endfunction
+
+function! s:goyo_leave()
+	" Quit Vim if this is the only remaining buffer
+	if b:quitting && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
+		if b:quitting_bang
+			qa!
+		else
+			qa
+		endif
+	endif
+endfunction
+
+autocmd! User GoyoEnter call <SID>goyo_enter()
+autocmd! User GoyoLeave call <SID>goyo_leave()
+
+
