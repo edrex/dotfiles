@@ -1,10 +1,11 @@
 #!/bin/sh
-DEV=$(ls /dev/usb/lp* | head -1)
+DEV=${2:-$(ls /dev/usb/lp* | head -1)}
 cd $(mktemp -d) \
-&& convert -background white -threshold 50% -rotate 90 -size 700x -pointsize 100 \
+&& convert -background white -threshold 50% -size 700x -pointsize 100 \
 -weight 700 -gravity Center \
 caption:"${1}" \
 label.png \
-&& ql570 $DEV w label.png
+&& lpr label.png
+#&& ql570 $DEV w label.png
 
 

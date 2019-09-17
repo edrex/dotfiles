@@ -17,6 +17,10 @@ c.auto_save.session = True
 
 # Enable JavaScript.
 # Type: Bool
+
+# https://www.reddit.com/r/qutebrowser/comments/8iwdpw/how_do_i_disable_javascript_globally_then/
+config.set('content.javascript.enabled', False)
+config.bind('xs', 'config-cycle --print --pattern *://*.{url:host}/* content.javascript.enabled ;; reload')
 config.set('content.javascript.enabled', True, 'file://*')
 
 # Enable JavaScript.

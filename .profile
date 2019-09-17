@@ -6,6 +6,7 @@ export ETCREPO=$MYSRCPATH/etc
 export GOPATH=$HOME
 export GOROOT="$(go env GOROOT)"
 export EDITOR=vim
+# export EDITOR=nsvc
 export TERMINAL=termite
 # somehow this makes emacs daemon start automatically if not already
 # https://stackoverflow.com/questions/5570451/how-to-start-emacs-server-only-if-it-is-not-started

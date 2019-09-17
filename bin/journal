@@ -8,27 +8,32 @@ import os
 parser = argparse.ArgumentParser(description="Open an editor on today's journal file.")
 parser.add_argument("subject", nargs='?', help="optional subject for the entry")
 parser.add_argument('-f', '--feels', action='store_true', help="put this entry in the auxilliary \"feels\" journal")
-parser.add_argument('-l', '--list', action='store_true', help="interactively select a recent entry to edit, using dmenu")
+group = parser.add_mutually_exclusive_group()
+group.add_argument('-l', '--list', action='store_true', help="interactively select a recent entry to edit")
+group.add_argument('-r', '--resume', action='store_true', help="resume the most recent entry")
 
 if __name__ == '__main__':
     args = parser.parse_args()
     base_dir = os.path.expanduser("~/Documents/")
     journal_dir = base_dir + ("Feels " if args.feels else "") + "Journal/"
-
+    os.chdir(journal_dir)
     if args.list:
-        ls = Popen(["ls", "-t", journal_dir], stdout=PIPE)
-        dmenu = Popen(["dmenu"], stdin=ls.stdout, stdout=PIPE, encoding="utf8")
+        ls = Popen(["ls", "-t"], stdout=PIPE)
+        chooser = Popen(["fzf", "--preview", "cat {}"], stdin=ls.stdout, stdout=PIPE, encoding="utf8")
         ls.stdout.close()
-        f = dmenu.communicate()[0].strip()
+        f = chooser.communicate()[0].strip()
         if f == '':
             print("no selection")
             exit()
-        target = journal_dir + f
+        target = f
+    elif args.resume:
+        ls = Popen(["ls", "-t"], stdout=PIPE)
+        target = ls.stdout.readline().decode().rstrip()
     else:
         base = datetime.datetime.today().strftime('%Y-%m-%d')
         if args.subject:
             base += "-" + args.subject
-        target = journal_dir + base + ".md"
+        target = base + ".md"
 
     # this template implementation has two bugs:
     # - buffer starts out dirty
@@ -45,8 +50,7 @@ if __name__ == '__main__':
 
     # TODO: rewrite template implementation
     # - copy template to filename
-    # - on editor exit, remove file if unchanged from template
+    # - on editor exit, remove file if unchanged
     # This way, it will work with any editor, and the buffer won't be dirty at start.
 
-    run(["vim", target, '+Goyo'])    
-    
+    run(["vim", target, '+Goyo'])

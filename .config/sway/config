@@ -5,7 +5,6 @@ set $left h
 set $down j
 set $up k
 set $right l
-
 # waiting for clipboard support
 #set $term alacritty
 #set $term kitty
@@ -39,19 +38,20 @@ input "1739:30383:DLL075B:01_06CB:76AF_Touchpad" {
 
 
 exec swaymsg command seat "*" hide_cursor 5000
-exec swayidle \
-    timeout 300 'swaylock -c 000000' \
+exec swayidle -w\
+    timeout 300 'swaylock-blur -- -f' \
     timeout 1800 'systemctl suspend' \
     timeout 600 'swaymsg "output * dpms off"' \
        resume 'swaymsg "output * dpms on"' \
-    before-sleep 'swaylock -c 000000'
+    before-sleep 'swaylock-blur -- -f'
 exec mako
 
 font pango:DejaVu Sans Mono 10
 for_window [instance=mpv] floating enable, sticky enable
 for_window [app_id="firefox"] inhibit_idle fullscreen
-for_window [shell="xdg"] title_format '<span color="$green">[%app_id]</span> %title'
-for_window [shell="xwayland" ] title_format '<span color="$green">[X11]</span> %title'
+# for_window [shell="xdg"] title_format '[%app_id] %title'
+for_window [shell="xdg"] title_format '%title'
+for_window [shell="xwayland" ] title_format '[X11] %title'
 
 bindsym $mod+Return exec $term
 bindsym $mod+Shift+c kill
