@@ -12,6 +12,12 @@ export TERMINAL=termite
 # https://stackoverflow.com/questions/5570451/how-to-start-emacs-server-only-if-it-is-not-started
 export ALTERNATE_EDITOR=""
 
+# like dark theme
+export CALIBRE_USE_SYSTEM_THEME=1
+export Wiki=$HOME/Documents/wikis/ericwiki
+export FeelsWiki=$HOME/Documents/wikis/feels
+
+
 source $HOME/.nix-profile/etc/profile.d/nix.sh
 # Default value from
 # https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html

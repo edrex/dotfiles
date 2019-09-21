@@ -16,9 +16,10 @@ group.add_argument('-r', '--resume', action='store_true', help="resume the most 
 
 if __name__ == '__main__':
     args = parser.parse_args()
-    base_path = os.path.expanduser("~/Documents/")
-    journal_dir = ("Feels " if args.feels else "") + "Journal/"
-    os.chdir(base_path + journal_dir)
+    #  base_path = os.path.expanduser("~/vimwiki/")
+    wiki_path = os.environ[ 'FeelsWiki' ] if args.feels else os.environ[ 'Wiki' ]
+    journal_dir = os.path.join( wiki_path , "Journal/" )
+    os.chdir(journal_dir)
     if args.list:
         ls = Popen(["ls", "-t"], stdout=PIPE)
         chooser = Popen(["fzf", "--preview", "cat {}"], stdin=ls.stdout, stdout=PIPE, encoding="utf8")
@@ -60,4 +61,5 @@ if __name__ == '__main__':
 
     # set terminal title so we know what we're editing
     print(f'\33]0;{journal_dir}{ target }\a', end='', flush=True)
-    run(["vim", target, '+Goyo'])
+    editor = os.environ['EDITOR'] or 'vim'
+    run([editor, target, '+Goyo'])

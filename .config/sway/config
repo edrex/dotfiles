@@ -224,7 +224,9 @@ bindsym XF86AudioPrev exec playerctl previous
 bar {
   # status_command i3blocks
 	tray_output primary
-	status_command i3status
+
+  # status_command i3blocks | i3status-taskwarrior
+	status_command i3status | i3status-taskwarrior
   colors {
     separator #666666
     background #000000

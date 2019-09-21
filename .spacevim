@@ -11,9 +11,9 @@ let g:spacevim_plug_home = '~/.vim/plugged'
 " Enable the existing layers in space-vim.
 " Refer to https://github.com/liuchengxu/space-vim/blob/master/layers/LAYERS.md for all available layers.
 let g:spacevim_layers = [
-			\ 'fzf', 'better-defaults', 'which-key', 'spacevim', 'goyo', 'git', 'github', 'lightline', 'markdown', 'python'
-			\ , 'lsp', 'editing', 'formatting', 'programming'
-			\ ]
+			\ 'better-defaults','fzf', 'which-key', 'spacevim', 'goyo', 'git', 'github', 'lightline', 'markdown', 'python'
+			\ , 'editing', 'formatting', 'programming'
+			\ , 'vimwiki' ]
 
 " Uncomment the following line if your terminal(-emulator) supports true colors.
 let g:spacevim_enable_true_color = 1
@@ -34,6 +34,9 @@ function! UserInit()
 	"  Plug 'junegunn/seoul256.vim'
 	Plug 'ipod825/vim-netranger'
 	Plug 'ajmwagar/vim-deus'
+	Plug 'blindFS/vim-taskwarrior'
+  " Plug 'vimwiki/vimwiki'
+	Plug 'tbabej/taskwiki'
 endfunction
 
 " Override the default settings from space-vim as well as adding extras
@@ -45,6 +48,11 @@ function! UserConfig()
 	" Uncomment the following line to disable relative number.
 	" set norelativenumber
 
+	let g:vimwiki_list = [{'path': '~/Documents/wikis/ericwiki',
+												\ 'syntax': 'markdown', 'ext': '.md'},
+												\{'path': '~/Documents/wikis/feels/',
+												\ 'syntax': 'markdown', 'ext': '.md'}]
+	let g:taskwiki_markup_syntax = "markdown"
 	" Adding extras.
 	" Uncomment the following line If you have installed the powerline fonts.
 	" It is good for airline layer.
@@ -108,3 +116,4 @@ autocmd! User GoyoEnter call <SID>goyo_enter()
 autocmd! User GoyoLeave call <SID>goyo_leave()
 
 
+" vi:syntax=vim

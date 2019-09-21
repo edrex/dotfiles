@@ -1,0 +1,5 @@
+#!/bin/sh
+
+cd $Wiki
+F="$(fzf)"
+[ -z "$F" ] || vim $F

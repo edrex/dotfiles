@@ -2,44 +2,61 @@ let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 set dir=~/.tmp
 set backupdir=~/.tmp
 set nocompatible               " be iMproved
+filetype plugin on
 set autowriteall				" autosave current on :make (also used by vim-go)
 " write buffer when focus lost, no error for untitled
 " https://vim.fandom.com/wiki/Auto_save_files_when_focus_is_lost
 :au FocusLost * silent! wa
 
 call plug#begin('~/.vim/plugged')
-  Plug 'scrooloose/nerdtree'
-	Plug 'Xuyuanp/nerdtree-git-plugin'
+	Plug 'tpope/vim-sensible'
 	Plug 'tpope/vim-surround'
-  Plug 'vim-airline/vim-airline'
-	Plug 'ctrlpvim/ctrlp.vim'
 
-  Plug 'jceb/vim-orgmode'
-  Plug 'tpope/vim-speeddating'
-	Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-	Plug 'jreybert/vimagit'
-	Plug 'junegunn/goyo.vim'
 	Plug 'vimwiki/vimwiki'
+	Plug 'tbabej/taskwiki'
+	Plug 'blindFS/vim-taskwarrior'
 
-  Plug 'tpope/vim-fugitive'
-" Plug 'L9'
-" Plug 'JavaScript-Indent'
-" Plug 'jistr/vim-nerdtree-tabs'
-" Plug 'jeetsukumaran/vim-buffergator'
+	Plug 'ipod825/vim-netranger'
 
-" Plug 'mileszs/ack.vim'
-" Plug 'ZoomWin'
-" Plug 'rson/vim-conque'
+	Plug 'vim-airline/vim-airline'
+	Plug 'ctrlpvim/ctrlp.vim'
+	Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+	Plug 'junegunn/fzf.vim'
+
+	Plug 'tpope/vim-speeddating'
+	Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+	Plug 'junegunn/goyo.vim'
+
+	Plug 'tpope/vim-fugitive'
+
+	Plug 'ajmwagar/vim-deus'
   Plug 'jamessan/vim-gnupg'
+	" Plug 'jreybert/vimagit'
+  " Plug 'jceb/vim-orgmode'
+  " Plug 'scrooloose/nerdtree'
+	" Plug 'Xuyuanp/nerdtree-git-plugin'
+	" Plug 'L9'
+	" Plug 'JavaScript-Indent'
+	" Plug 'jistr/vim-nerdtree-tabs'
+	" Plug 'jeetsukumaran/vim-buffergator'
+
+	" Plug 'mileszs/ack.vim'
+	" Plug 'ZoomWin'
+	" Plug 'rson/vim-conque'
 
 call plug#end()
 
+colorscheme deus
+"highlight Normal guibg=black
+"hi EndOfBuffer guifg=bg
+
 let g:vimwiki_list = [{'path': '~/vimwiki/',
-                      \ 'syntax': 'markdown', 'ext': '.markdown'}]
+                      \ 'syntax': 'markdown', 'ext': '.md'}]
+let g:taskwiki_markup_syntax = "markdown"
+
 set tabstop=2
 set shiftwidth=2
-set noexpandtab
-
+" set noexpandtab
 set mouse=a
 " set ttymouse=xterm2
 syntax on
