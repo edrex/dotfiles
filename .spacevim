@@ -57,6 +57,9 @@ function! UserConfig()
 	" Uncomment the following line If you have installed the powerline fonts.
 	" It is good for airline layer.
 	let g:airline_powerline_fonts = 1
+
+	" dynamically set terminal title
+	set title
 	set wrap
 	set linebreak
 	set nolist
