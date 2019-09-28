@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# src:
+DIR="${1:-.}"
+find "$DIR" -name .git -type d -prune -false -o -print | \
+perl -ne 'push @{$f{lc($_)}}, $_; END{map{print @{$f{$_}}} grep {@{$f{$_}}>1} sort keys %f}'
+
