@@ -1,2 +1,2 @@
 @Super_R
-	i3-msg mode "top: [l]aunch [r]esize [a]udio [c]onfig [s]ystem"
+	i3-msg mode ""

@@ -18,7 +18,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     #  base_path = os.path.expanduser("~/vimwiki/")
     wiki_path = os.environ[ 'FeelsWiki' ] if args.feels else os.environ[ 'Wiki' ]
-    journal_dir = os.path.join( wiki_path , "Journal/" )
+    journal_dir = wiki_path
     os.chdir(journal_dir)
     if args.list:
         ls = Popen(["ls", "-t"], stdout=PIPE)

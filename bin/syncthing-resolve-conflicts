@@ -7,6 +7,7 @@ declare -r myname='syncthing-resolve-conflicts'
 declare -r myver='1.0.2'
 
 diffprog=${DIFFPROG:-'vim -d'}
+findprog=${FINDPROG:-''}
 USE_COLOR='y'
 declare -i USE_FIND=0
 declare -a ignored
@@ -101,7 +102,7 @@ version() {
 
 cmd() {
     if (( USE_FIND )); then
-        find ~/ -name '*sync-conflict*' -print0
+        find $PWD -name '*sync-conflict*' -print0
     else
         case "$(uname -s)" in
             Darwin)
@@ -198,23 +199,35 @@ while IFS= read -u 3 -r -d '' conflict; do
         ignored+=("$conflict")
         continue
     elif test "$conflict" -ef "$file"; then
-        warning "Original file and conflict file point to the same file. Ignoring conflict."
+        warning "Original file and conflict file point to the same file. Removing conflict."
+        plain "$(rm -v "$conflict")"
         continue
     elif cmp -s "$conflict" "$file"; then
         msg2 "Files are identical, removing..."
         plain "$(rm -v "$conflict")"
         continue
     else
-        ask "(V)iew, (S)kip, (R)emove sync conflict, (O)verwrite with sync conflict, (Q)uit: [v/s/r/o/q] "
+			ask "(V)iew, (S)kip, (D)elete sync conflict, Rename, (O)verwrite with sync conflict, (Q)uit: [v/s/d/r/o/q] "
         # shellcheck disable=SC2162
         while read c; do
             case $c in
                 q|Q) exit 0;;
-                r|R) plain "$(rm -v "$conflict")"; break ;;
+                d|D) plain "$(rm -v "$conflict")"; break ;;
                 o|O) plain "$(mv -v "$conflict" "$file")"; break ;;
+                r|R)
+										ask "filename? "
+										read f
+										if [ -z "$f" ] ; then
+											echo "empty. try again"
+											continue
+										else
+											plain "$(mv -v "$conflict" "$(dirname $conflict)/$f")"
+											break
+										fi
+										;;
                 v|V)
                     $diffprog "$conflict" "$file"
-                    ask "(V)iew, (S)kip, (R)emove sync conflict, (O)verwrite with sync conflict, (Q)uit: [v/s/r/o/q] "
+										ask "(V)iew, (S)kip, (D)elete sync conflict, Rename, (O)verwrite with sync conflict, (Q)uit: [v/s/d/r/o/q] "
                     continue ;;
                 s|S) break ;;
                 *) ask "Invalid answer. Try again: [v/s/r/o/q] "; continue ;;

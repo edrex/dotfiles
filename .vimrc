@@ -26,7 +26,7 @@ call plug#begin('~/.vim/plugged')
 	Plug 'tpope/vim-speeddating'
 	Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 	Plug 'junegunn/goyo.vim'
-
+	Plug 'reedes/vim-pencil'
 	Plug 'tpope/vim-fugitive'
 
 	Plug 'ajmwagar/vim-deus'
@@ -79,7 +79,11 @@ set undofile                " Save undo's after file closes
 set undolevels=1000         " How many undos
 set undoreload=10000        " number of lines to save for undo
 
-
+augroup pencil
+  autocmd!
+  autocmd FileType markdown,mkd call pencil#init()
+  autocmd FileType text         call pencil#init()
+augroup END
 
 " autocmd StdinReadPre * let s:std_in=1
 " autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif

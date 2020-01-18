@@ -16,4 +16,4 @@ export QT_QPA_PLATFORMTHEME="qt5ct"
 export GPG_TTY=$(tty)
 gpg-connect-agent updatestartuptty /bye >/dev/null
 
-sway -d > $HOME/.log/sway.log 2>&1
+sway > $HOME/.log/sway.log 2>&1

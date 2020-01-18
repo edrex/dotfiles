@@ -4,8 +4,8 @@
 GEOM=$(slurp) || exit $?
 
 export LIBVA_DRIVER_NAME=iHD
-OUTPUT="eDP-1"
-CAP=$HOME/Pictures/Screencap-$(date +%Y-%M-%d-%R:%S).mkv
+# OUTPUT="DP-1"
+CAP=$HOME/Pictures/Screencap-$(date +%Y-%d-%d-%R:%S).mkv
 
-wf-recorder -f $CAP -g "${GEOM}" -d /dev/dri/renderD128 -o $OUTPUT && \
+wf-recorder -f $CAP -g "${GEOM}" -d /dev/dri/renderD128 && \
 echo $CAP

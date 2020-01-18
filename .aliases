@@ -11,4 +11,8 @@ alias pb="curl -F 'clbin=<-' https://clbin.com"
 alias hgit='git --work-tree=$HOME --git-dir=$HOMEREPO/.git'
 alias egit='git --work-tree=/etc --git-dir=$ETCREPO/.git'
 alias d='date +%Y-%m-%d'
-alias sv='vim -u ~/.vimrc'
+alias sv='vim -u ~/.space-vim/init.vim'
+alias vimgo='vim -u ~/.config/nvim/init.go.vim'
+
+
+

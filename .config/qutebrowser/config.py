@@ -23,7 +23,8 @@ c.auto_save.session = True
 config.set('content.javascript.enabled', False)
 config.bind('xs', 'config-cycle --print --pattern *://*.{url:host}/* content.javascript.enabled ;; reload')
 config.set('content.javascript.enabled', True, 'file://*')
-
+config.bind('xs', 'config-cycle --print --pattern *://*.{url:host}/* content.javascript.enabled ;; reload')
+config.bind(',n', 'config-cycle content.user_stylesheets "~/src/github.com/alphapapa/solarized-everything-css/css/solarized-dark/solarized-dark-all-sites.css" ""')
 # Enable JavaScript.
 # Type: Bool
 config.set('content.javascript.enabled', True, 'chrome://*/*')

@@ -1,5 +1,5 @@
 #!/bin/sh
 
 cd $Wiki
-F="$(fzf)"
-[ -z "$F" ] || vim $F
+F="$(find-by-date | fzf --no-sort --tac --preview="bat --color=always -p --theme=base16 {}")"
+[ -z "$F" ] || vim "$F"

@@ -11,13 +11,17 @@ let g:spacevim_plug_home = '~/.vim/plugged'
 " Enable the existing layers in space-vim.
 " Refer to https://github.com/liuchengxu/space-vim/blob/master/layers/LAYERS.md for all available layers.
 let g:spacevim_layers = [
-			\ 'better-defaults','fzf', 'which-key', 'spacevim', 'goyo', 'git', 'github', 'lightline', 'markdown', 'python'
-			\ , 'editing', 'formatting', 'programming'
-			\ , 'vimwiki' ]
+			\ 'better-defaults', 'fzf', 'which-key', 'spacevim', 'goyo', 'git', 'github', 'lightline', 'python'
+			\ , 'go', 'code-snippets', 'syntax-checking', 'ctags'
+			\ , 'editing', 'formatting', 'programming', 'better-motion'
+      \ , 'vimwiki'
+      \ , 'taskwarrior'
+      \ , 'file-manager'
+      \ ]
 
 " Uncomment the following line if your terminal(-emulator) supports true colors.
 let g:spacevim_enable_true_color = 1
-let g:spacevim_lsp_engine = 'coc'
+" let g:spacevim_lsp_engine = 'coc'
 " Uncomment the following if you have some nerd font installed.
 let g:spacevim_nerd_fonts = 1
 let g:spacevim_excluded = ['dominikduda/vim_current_word']
@@ -26,97 +30,28 @@ let g:spacevim_excluded = ['dominikduda/vim_current_word']
 "   Layer 'airline'
 " endif
 
+source ~/.my.vimrc
 " Manage your own plugins.
 " Refer to https://github.com/junegunn/vim-plug for more detials.
 function! UserInit()
 
-	" Add your own plugin via Plug command.
-	"  Plug 'junegunn/seoul256.vim'
-	Plug 'ipod825/vim-netranger'
-	Plug 'ajmwagar/vim-deus'
-	Plug 'blindFS/vim-taskwarrior'
-  " Plug 'vimwiki/vimwiki'
-	Plug 'tbabej/taskwiki'
+  " Add your own plugin via Plug command.
+  "  Plug 'junegunn/seoul256.vim'
+  Plug 'edrex/vim-deus'
 endfunction
 
 " Override the default settings from space-vim as well as adding extras
 function! UserConfig()
-	colorscheme deus
-	highlight Normal guibg=black
-	hi EndOfBuffer guifg=bg
+  colorscheme deus
 	" Override the default settings.
 	" Uncomment the following line to disable relative number.
 	" set norelativenumber
 
-	let g:vimwiki_list = [{'path': '~/Documents/wikis/ericwiki',
-												\ 'syntax': 'markdown', 'ext': '.md'},
-												\{'path': '~/Documents/wikis/feels/',
-												\ 'syntax': 'markdown', 'ext': '.md'}]
-	let g:taskwiki_markup_syntax = "markdown"
 	" Adding extras.
 	" Uncomment the following line If you have installed the powerline fonts.
 	" It is good for airline layer.
 	let g:airline_powerline_fonts = 1
-
-	" dynamically set terminal title
-	set title
-	set wrap
-	set linebreak
-	set nolist
-	set mouse=a
-	set tabstop=2
-	set shiftwidth=2
-	set noexpandtab
-	set clipboard=unnamedplus
-	set undofile                " Save undo's after file closes
-	set undolevels=1000         " How many undos
-	set undoreload=10000        " number of lines to save for undo
-
-	set autowriteall				" autosave current on :make (also used by vim-go)
-	" write buffer when focus lost, no error for untitled
-	" https://vim.fandom.com/wiki/Auto_save_files_when_focus_is_lost
-	au FocusLost * silent! wa
 endfunction
 
-" Wayland clipboard provider that strips carriage returns (GTK3 issue).
-" This is needed because currently there's an issue where GTK3 applications on
-" Wayland contain carriage returns at the end of the lines (this is a root
-" issue that needs to be fixed).
-" [Neovim pasting content with ^M at the end of lines · Issue #10223 · neovim/neovim](https://github.com/neovim/neovim/issues/10223)
-" let g:clipboard = {
-      " \   'name': 'wayland-strip-carriage',
-      " \   'copy': {
-      " \      '+': 'wl-copy --foreground --type text/plain',
-      " \      '*': 'wl-copy --foreground --type text/plain --primary',
-      " \    },
-      " \   'paste': {
-      " \      '+': {-> systemlist('wl-paste --no-newline | tr -d "\r"')},
-      " \      '*': {-> systemlist('wl-paste --no-newline --primary | tr -d "\r"')},
-      " \   },
-      " \   'cache_enabled': 1,
-      " \ }
 
-function! s:goyo_enter()
-	let b:quitting = 0
-	let b:quitting_bang = 0
-	autocmd QuitPre <buffer> let b:quitting = 1
-	cabbrev <buffer> q! let b:quitting_bang = 1 <bar> q!
-	hi NonText guifg=bg
-endfunction
-
-function! s:goyo_leave()
-	" Quit Vim if this is the only remaining buffer
-	if b:quitting && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
-		if b:quitting_bang
-			qa!
-		else
-			qa
-		endif
-	endif
-endfunction
-
-autocmd! User GoyoEnter call <SID>goyo_enter()
-autocmd! User GoyoLeave call <SID>goyo_leave()
-
-
-" vi:syntax=vim
+"me vi:syntax=vim
