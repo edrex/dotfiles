@@ -47,21 +47,23 @@ set $right l
 #set $term alacritty
 #set $term kitty
 set $term termite
+set $floatterm floatterm
 set $menu  "wofi --show drun,run"
 #set $menu  "dmenu"
 set $winmenu "i3-windows-and-run --menu \"wofi\" -- -d"
 
 bindsym $mod+Return exec $term
+bindsym $mod+Shift+Return exec $term
 bindsym $mod+Shift+c kill
 bindsym $mod+d exec $menu
 bindsym $mod+Shift+d exec $winmenu
 bindsym $mod+Shift+r reload
 
 #assign [title="journal"] 8
-bindsym $mod+i exec $term -e "journal -p" 
-bindsym $mod+Shift+i exec $term -e "journal -pf"
-bindsym $mod+o exec $term -e "wf"
-bindsym $mod+Shift+o exec $term -e "wff"
+bindsym $mod+i exec floatterm journal -p 
+bindsym $mod+Shift+i exec floatterm journal -pf
+bindsym $mod+o exec floatterm wf
+bindsym $mod+Shift+o exec floatterm wff
 
 bindsym $mod+Ctrl+s exec "screenshot"
 # start recording a video

@@ -1,0 +1,13 @@
+#!/bin/sh
+
+if [ $# -lt 2 ]; then
+    echo "Usage: ${0} program i3cmd
+    eg: ${0} 'floating enable' termite"
+    exit
+fi
+
+I3CMD=${1}
+echo $1
+shift
+printf '%s\n' "${@}"
+swaymsg "for_window [pid=${$}] ${I3CMD}" && exec "${@}"

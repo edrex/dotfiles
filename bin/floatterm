@@ -1,0 +1,8 @@
+#!/bin/sh
+
+CMD=(${TERMINAL})
+if [ $# -gt 0 ]; then
+    CMD=(${TERMINAL} -e "$(printf "%q " "$@")")
+fi
+
+i3cmd_exec "floating enable" "${CMD[@]}" 
