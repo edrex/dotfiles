@@ -7,7 +7,5 @@ if [ $# -lt 2 ]; then
 fi
 
 I3CMD=${1}
-echo $1
 shift
-printf '%s\n' "${@}"
 swaymsg "for_window [pid=${$}] ${I3CMD}" && exec "${@}"
