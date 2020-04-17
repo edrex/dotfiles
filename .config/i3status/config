@@ -32,20 +32,25 @@ wireless _first_ {
 #         format_down = "E: down"
 # }
 
+# Customized battery status
 battery all {
-        format = "%status %percentage %remaining"
+        format = "%status %percentage"
+        status_chr = "⚡"
+        status_bat = "🔋"
+        status_full = "☻"
 }
 
 tztime local {
-        format = "%Y-%m-%d %H:%M:%S"
+        #format = "%Y-%m-%d %H:%M:%S"
+        format = "%a %d. %b %Y %H:%M"
 }
 
 load {
-        format = "%1min"
+        format = "L: %1min"
 }
 
 disk "/" {
-        format = "%avail"
+        format = "D: %avail"
 }
 
 volume master {

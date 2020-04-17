@@ -19,6 +19,10 @@ input "1739:30383:DLL075B:01_06CB:76AF_Touchpad" {
 	dwt enabled
 }
 
+# Autostart
+
+# Start dunst, a notification daemon
+exec dunst
 exec swaymsg command seat "*" hide_cursor 5000
 exec swayidle -w\
     idlehint 120 \
@@ -46,7 +50,7 @@ set $right l
 # waiting for clipboard support
 #set $term alacritty
 #set $term kitty
-set $term sakura
+set $term  exec-with-pwd sakura
 set $interm $term -e
 set $floatterm floatterm
 set $menu  "wofi --show drun,run -i"
