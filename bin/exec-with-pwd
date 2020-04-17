@@ -7,7 +7,7 @@
 # Small script that tries to determine the PWD of the focused terminal
 # (in sway tiling window manager) and pass it to the newly spawned one.
 
-if [ $# -ne 1 ]; then
+if [ $# -lt 1 ]; then
     echo "Usage: ${0} command
     eg: ${0} termite"
     exit

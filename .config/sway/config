@@ -58,7 +58,7 @@ set $menu  "wofi --show drun,run -i"
 set $winmenu "i3-windows-and-run --menu \"wofi\" -- -id"
 
 bindsym $mod+Return exec $term
-bindsym $mod+Shift+Return exec $term
+bindsym $mod+Shift+Return exec $interm ranger
 bindsym $mod+Shift+c kill
 bindsym $mod+d exec $menu
 bindsym $mod+Shift+d exec $winmenu
