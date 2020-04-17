@@ -2,4 +2,4 @@
 
 cd $Wiki
 F="$(find-by-date | fzf --no-sort --tac --preview="bat --color=always -p --theme=base16 {}")"
-[ -z "$F" ] || vim "$F"
+[ -z "$F" ] || $EDITOR "$F"

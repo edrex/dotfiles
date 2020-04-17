@@ -14,5 +14,5 @@ alias d='date +%Y-%m-%d'
 alias sv='vim -u ~/.space-vim/init.vim'
 alias vimgo='vim -u ~/.config/nvim/init.go.vim'
 
-
+alias r='EDITOR=kak ranger --cmd="set viewmode!"'
 

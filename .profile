@@ -18,7 +18,7 @@ export GOROOT="$(go env GOROOT)"
 export EDITOR=vim
 export NVIM_LISTEN_ADDRESS=/tmp/eric-nvimsocket
 # export EDITOR=nsvc
-export TERMINAL=termite
+export TERMINAL=sakura
 # somehow this makes emacs daemon start automatically if not already
 # https://stackoverflow.com/questions/5570451/how-to-start-emacs-server-only-if-it-is-not-started
 export ALTERNATE_EDITOR=""
