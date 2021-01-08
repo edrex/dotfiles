@@ -4,6 +4,7 @@ Default=~/Notebooks/Notes
 2=~/Notebooks/Private
 3=~/Notebooks/Notes
 4=~/Notebooks/CollabLoviEric
+5=~/Notebooks/Tech
 
 [Notebook 1]
 uri=~/Notebooks/Website
@@ -26,5 +27,11 @@ icon=None
 [Notebook 4]
 uri=~/Notebooks/CollabLoviEric
 name=CollabLoviEric
+interwiki=None
+icon=None
+
+[Notebook 5]
+uri=~/Notebooks/Tech
+name=Tech
 interwiki=None
 icon=None

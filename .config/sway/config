@@ -3,9 +3,10 @@
 # output eDP-1 scale 2 pos 0 0
 # output DP-1 pos -480 -1200
 
-output eDP-1 scale 2 pos 480 1200
-output DP-1 pos 0 0
-
+#output eDP-1 scale 2 pos 480 1200
+#output DP-1 pos 0 0
+output eDP-1 scale 2 pos 1080 420
+output DP-1 pos 0 0 transform 270
 #output * bg /usr/share/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 
 input * {
@@ -19,10 +20,7 @@ input "1739:30383:DLL075B:01_06CB:76AF_Touchpad" {
 	dwt enabled
 }
 
-# Autostart
-
-# Start dunst, a notification daemon
-exec dunst
+exec albert
 exec swaymsg command seat "*" hide_cursor 5000
 exec swayidle -w\
     idlehint 120 \
@@ -50,15 +48,16 @@ set $right l
 # waiting for clipboard support
 #set $term alacritty
 #set $term kitty
-set $term  exec-with-pwd sakura
+set $term exec-with-pwd $TERMINAL
 set $interm $term -e
 set $floatterm floatterm
-set $menu  "wofi --show drun,run -i"
+#set $menu  "wofi --show drun,run -i"
 #set $menu  "dmenu"
+set $menu "albert toggle"
 set $winmenu "i3-windows-and-run --menu \"wofi\" -- -id"
 
 bindsym $mod+Return exec $term
-bindsym $mod+Shift+Return exec $interm ranger
+bindsym $mod+Shift+Return exec $interm code .
 bindsym $mod+Shift+c kill
 bindsym $mod+d exec $menu
 bindsym $mod+Shift+d exec $winmenu

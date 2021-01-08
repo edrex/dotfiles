@@ -1,4 +1,4 @@
 #!/bin/sh
-rofi -dmenu $@
+wofi -dmenu $@
 
 #dmenu-wl $@

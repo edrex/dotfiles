@@ -1,0 +1,9 @@
+profile nomad {
+	output eDP-1 position 0,0 scale 2
+}
+
+profile desk {
+	output eDP-1 position 1080,240 scale 2
+    output "Goldstar Company Ltd 23EA63" position 0,0 transform 90
+}
+

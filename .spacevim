@@ -11,11 +11,11 @@ let g:spacevim_plug_home = '~/.vim/plugged'
 " Enable the existing layers in space-vim.
 " Refer to https://github.com/liuchengxu/space-vim/blob/master/layers/LAYERS.md for all available layers.
 let g:spacevim_layers = [
-			\ 'better-defaults', 'fzf', 'which-key', 'spacevim', 'goyo', 'git', 'github', 'lightline', 'python'
+			\ 'better-defaults', 'fzf', 'spacevim', 'git', 'github', 'lightline'
 			\ , 'go', 'code-snippets', 'syntax-checking', 'ctags'
 			\ , 'editing', 'formatting', 'programming', 'better-motion'
       \ , 'vimwiki'
-      \ , 'taskwarrior'
+      "\ , 'taskwarrior'
       \ , 'file-manager'
       \ ]
 
@@ -25,6 +25,7 @@ let g:spacevim_enable_true_color = 1
 " Uncomment the following if you have some nerd font installed.
 let g:spacevim_nerd_fonts = 1
 let g:spacevim_excluded = ['dominikduda/vim_current_word']
+" let g:spacevim_enable_clap = 1
 " If you want to have more control over the layer, try using Layer command.
 " if g:spacevim.gui
 "   Layer 'airline'
@@ -37,6 +38,7 @@ function! UserInit()
 
   " Add your own plugin via Plug command.
   "  Plug 'junegunn/seoul256.vim'
+  Plug 'jamessan/vim-gnupg'
   Plug 'edrex/vim-deus'
 endfunction
 
@@ -51,7 +53,39 @@ function! UserConfig()
 	" Uncomment the following line If you have installed the powerline fonts.
 	" It is good for airline layer.
 	let g:airline_powerline_fonts = 1
+  let s:hidden_all=0
+	nnoremap <silent> <Leader>h :call ToggleHideAll()<CR>
 endfunction
 
+function! ToggleHideAll() abort
+    if s:hidden_all==0
+        let s:hidden_all=1
+        set noruler
+        set laststatus=0
+				set norelativenumber
+				set nonumber
+				set noshowmode  " to get rid of thing like --INSERT--
+				set noshowcmd  " to get rid of display of last command
+				echo
+    else
+        let s:hidden_all=0
+        set showmode
+        set ruler
+        set laststatus=2
+        set showcmd
+				set relativenumber
+				set number
+    endif
+endfunction
+
+function! AdjustColors()
+	" get rid of tildes at eof
+	hi! EndOfBuffer ctermbg=bg ctermfg=bg guibg=bg guifg=bg 
+endfunction
+
+augroup solarized_colors
+    autocmd!
+    autocmd ColorScheme * call AdjustColors()
+augroup END
 
 "me vi:syntax=vim

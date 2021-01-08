@@ -13,7 +13,7 @@ call plug#begin('~/.vim/plugged')
 	Plug 'tpope/vim-surround'
 
 	Plug 'vimwiki/vimwiki'
-	Plug 'tbabej/taskwiki'
+	"Plug 'tbabej/taskwiki'
 	Plug 'blindFS/vim-taskwarrior'
 
 	Plug 'ipod825/vim-netranger'
