@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# cancel if no selection
+GEOM=$(slurp) || exit $?
+FILE=$HOME/Pictures/Screenshot-$(date +%Y-%m-%d-%R:%S).png
+grim -g "${GEOM}" "${FILE}"
+echo ${FILE}
