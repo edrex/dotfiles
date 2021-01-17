@@ -2,6 +2,10 @@
 
 # cancel if no selection
 GEOM=$(slurp) || exit $?
-FILE=$HOME/Pictures/Screenshot-$(date +%Y-%m-%d-%R:%S).png
+NAME=Screenshot-$(date +%Y-%m-%d-%H:%M).png
+FILE=$HOME/Pictures/$NAME
+sleep 2
 grim -g "${GEOM}" "${FILE}"
+wl-copy "$FILE"
+notify-send "Copied screenshot to clipboard" "$NAME"
 echo ${FILE}

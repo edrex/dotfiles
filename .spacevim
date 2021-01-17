@@ -40,6 +40,7 @@ function! UserInit()
   "  Plug 'junegunn/seoul256.vim'
   Plug 'jamessan/vim-gnupg'
   Plug 'edrex/vim-deus'
+	Plug 'ziglang/zig.vim'
 endfunction
 
 " Override the default settings from space-vim as well as adding extras

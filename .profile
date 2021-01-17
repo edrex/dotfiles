@@ -15,7 +15,8 @@ nvm use 12
 
 export GOPATH=$HOME
 export GOROOT="$(go env GOROOT)"
-export EDITOR=vim
+export EDITOR=kak
+# export EDITOR=vim
 export NVIM_LISTEN_ADDRESS=/tmp/eric-nvimsocket
 # export EDITOR=nsvc
 export TERMINAL=sakura
