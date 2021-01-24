@@ -1,0 +1,17 @@
+#!/bin/sh
+# Adapted from @SeerLite's bspc kak script https://discuss.kakoune.com/t/session-management-1-session-per-desktop-on-bspwm/1281
+
+if [[ $# -ge 2 ]] && [[ "$1" == "-s" ]]; then
+    SESSION=$2
+    shift
+    shift
+else SESSION=default
+fi
+    
+kak -clear
+# if session is found, connect to it. otherwise create it
+if kak -l | grep -q "^${SESSION}$"; then
+    exec kak -c "$SESSION" "$@"
+else
+    exec kak -s "$SESSION" "$@"
+fi

@@ -17,6 +17,7 @@ export GOPATH=$HOME
 export GOROOT="$(go env GOROOT)"
 export EDITOR=kak
 # export EDITOR=vim
+export WIKI_EDITOR="kaks wiki"
 export NVIM_LISTEN_ADDRESS=/tmp/eric-nvimsocket
 # export EDITOR=nsvc
 export TERMINAL=sakura

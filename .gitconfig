@@ -53,3 +53,5 @@
 	includeStatusHeader = false
 	includePullRequestsSection = false
 	includeIssuesSection = false
+[pull]
+	ff = only

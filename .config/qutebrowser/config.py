@@ -11,7 +11,7 @@
 #   qute://help/settings.html
 
 # Uncomment this to still load settings configured via autoconfig.yml
-# config.load_autoconfig()
+config.load_autoconfig()
 
 # Aliases for commands. The keys of the given dictionary are the
 # aliases, while the values are the commands they map to.
@@ -146,6 +146,30 @@ config.set('content.images', True, 'chrome-devtools://*')
 # Load images automatically in web pages.
 # Type: Bool
 config.set('content.images', True, 'devtools://*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.chriskempson.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.thomashunter.name/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.bugreports.qt.io/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.mykzilla.org/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.phoronix.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.app.element.io/*')
 
 # Enable JavaScript.
 # Type: Bool
@@ -315,6 +339,22 @@ config.set('content.javascript.enabled', True, 'chrome://*/*')
 # Type: Bool
 config.set('content.javascript.enabled', True, 'qute://*/*')
 
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.hub.docker.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.docs.influxdata.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.localhost/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.discuss.kakoune.com/*')
+
 # Allow websites to record audio.
 # Type: BoolAsk
 # Valid values:
@@ -413,6 +453,11 @@ c.content.user_stylesheets = []
 # Type: Int
 c.completion.cmd_history_max_items = -1
 
+# Duration (in milliseconds) to wait before removing finished downloads.
+# If set to -1, downloads are never removed.
+# Type: Int
+c.downloads.remove_finished = -1
+
 # Editor (and arguments) to use for the `open-editor` command. The
 # following placeholders are defined:  * `{file}`: Filename of the file
 # to be edited. * `{line}`: Line in which the caret is found in the
@@ -420,7 +465,7 @@ c.completion.cmd_history_max_items = -1
 # `{line0}`: Same as `{line}`, but starting from index 0. * `{column0}`:
 # Same as `{column}`, but starting from index 0.
 # Type: ShellCommand
-c.editor.command = ['i3-sensible-terminal', '-e', 'i3-sensible-editor {file}']
+c.editor.command = ['foot', 'kak', '{file}']
 
 # Enable smooth scrolling for web pages. Note smooth scrolling does not
 # work with the `:scroll-px` command.

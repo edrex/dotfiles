@@ -1,7 +1,7 @@
 # Read `man 5 sway` for a complete reference.
 
-exec kanshi #dynamic output config
-
+#exec kanshi #dynamic output config
+exec_always pkill kanshi; exec kanshi
 #output * bg /usr/share/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 
 input * {
@@ -16,8 +16,9 @@ input "1739:30383:DLL075B:01_06CB:76AF_Touchpad" {
 }
 
 font pango:DejaVu Sans Mono 10
+for_window [class=".*"] title_format "<span background='#ff0000'>%title</span>"
 
-exec mako #notifications
+exec mako --default-timeout 10000 # notifications
 exec albert #launcher
 exec swaymsg command seat "*" hide_cursor 5000
 exec swayidle -w\
@@ -46,13 +47,13 @@ set $right l
 set $term exec-with-pwd $TERMINAL
 set $interm $term
 set $floatterm floatterm
-#set $menu  "wofi --show drun,run -i"
+set $menu  "wofi -p 'Type app or command' --show drun,run -i"
 #set $menu  "dmenu"
-set $menu "albert toggle"
+#set $menu "albert toggle"
 set $winmenu "i3-windows-and-run --menu \"wofi\" -- -id"
 
 bindsym $mod+Return exec $term
-bindsym $mod+Shift+Return exec $interm code .
+#bindsym $mod+Shift+Return exec $interm code .
 bindsym $mod+q kill
 bindsym $mod+Shift+c kill
 bindsym $mod+d exec $menu
@@ -69,6 +70,8 @@ bindsym $mod+Ctrl+s exec "screenshot"
 # start recording a video
 bindsym $mod+Ctrl+Shift+s exec $interm "screencap"
 bindsym $mod+n exec "networkmanager_dmenu"
+bindsym $mod+b exec "btmenu"
+bindsym $mod+g exec "wl-gammactl"
 
 floating_modifier $mod normal
 bindsym $mod+Shift+e exit
@@ -139,7 +142,7 @@ bindsym $mod+Ctrl+Right move workspace to output right
     # You can "split" the current object of your focus with
     # $mod+b or $mod+v, for horizontal and vertical splits
     # respectively.
-    bindsym $mod+b splith
+    #bindsym $mod+b splith
     bindsym $mod+v splitv
 
     # Switch the current container between different layout styles
@@ -222,34 +225,78 @@ bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
+include ./base16-sway/themes/base16-pico.config
 
-#
-# Status Bar:
-#
 # Read `man 5 sway-bar` for more information about this section.
 # bar {
 #     swaybar_command waybar
 # }
 bar {
+    swaybar_command waybar
   # status_command i3blocks
 	tray_output primary
 
   # status_command i3blocks | i3status-taskwarrior
 	status_command i3status | i3status-taskwarrior
-  colors {
-    separator #666666
-    background #000000
-    statusline #ffffff
-    focused_workspace #551a8b #551a8b #ffffff
-    active_workspace #333333 #5f676a #ffffff
-    inactive_workspace #000000 #000000 #888888
-    urgent_workspace #2f343a #900000 #ffffff
-  }
+  # colors {
+  #   separator #666666
+  #   background #000000
+  #   statusline #ffffff
+  #   focused_workspace #551a8b #551a8b #ffffff
+  #   active_workspace #333333 #5f676a #ffffff
+  #   inactive_workspace #000000 #000000 #888888
+  #   urgent_workspace #2f343a #900000 #ffffff
+  # }
+    colors {
+        background $base00
+        separator  $base01
+        statusline $base04
+
+        # State             Border  BG      Text
+        focused_workspace   $base05 $base0D $base00
+        active_workspace    $base05 $base03 $base00
+        inactive_workspace  $base03 $base01 $base05
+        urgent_workspace    $base08 $base08 $base00
+        binding_mode        $base00 $base0A $base00
+    }
 }
 
-#client.focused #3b1261 #3b1261 #ffffff #662b9c
-#client.focused_inactive #333333 #5f676a #ffffff #484e50
-#client.unfocused #222222 #222222 #888888 #292d2e
-#client.urgent #2f343a #900000 #ffffff #900000
+# Basic color configuration using the Base16 variables for windows and borders.
+# Property Name         Border  BG      Text    Indicator Child Border
+# client.focused          $base05 $base0D $base00 $base0D $base0D
+# client.focused_inactive $base01 $base01 $base05 $base03 $base01
+# client.unfocused        $base01 $base00 $base05 $base01 $base01
+# client.urgent           $base08 $base08 $base00 $base08 $base08
+# client.placeholder      $base00 $base00 $base05 $base00 $base00
+# client.background       $base07
+# client.background #1E272B
+# client.focused #EAD49B #1E272B #EAD49B #9D6A47 #9D6A47
+# client.unfocused #EAD49B #1E272B #EAD49B #78824B #78824B
+# client.focused_inactive #EAD49B #1E272B #EAD49B #78824B #78824B
+# client.urgent #EAD49B #1E272B #EAD49B #78824B #78824B
+# client.placeholder #EAD49B #1E272B #EAD49B #78824B #78824B
 
+ 
+# class                 border  bground text    indicator child_border
+client.focused          #6272A4 #6272A4 #F8F8F2 #6272A4   #6272A4
+client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
+client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
+client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
+client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
+
+client.background       #F8F8F2
+
+# bar {
+#   colors {
+#     background #282A36
+#     statusline #F8F8F2
+#     separator  #44475A
+
+#     focused_workspace  #44475A #44475A #F8F8F2
+#     active_workspace   #282A36 #44475A #F8F8F2
+#     inactive_workspace #282A36 #282A36 #BFBFBF
+#     urgent_workspace   #FF5555 #FF5555 #F8F8F2
+#     binding_mode       #FF5555 #FF5555 #F8F8F2
+#   }
+# }
 include /etc/sway/config.d/*
