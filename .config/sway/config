@@ -98,20 +98,29 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-# _move_ the focused window with the same, but add Shift
-bindsym $mod+Ctrl+$left move workspace to output left
-bindsym $mod+Ctrl+$down move workspace to output down
-bindsym $mod+Ctrl+$up move workspace to output up
-bindsym $mod+Ctrl+$right move workspace to output right
+# move workspace to other output
+bindsym $mod+Ctrl+Shift+$left move workspace to output left
+bindsym $mod+Ctrl+Shift+$down move workspace to output down
+bindsym $mod+Ctrl+Shift+$up move workspace to output up
+bindsym $mod+Ctrl+Shift+$right move workspace to output right
 # ditto, with arrow keys
-bindsym $mod+Ctrl+Left move workspace to output left
-bindsym $mod+Ctrl+Down move workspace to output down
-bindsym $mod+Ctrl+Up move workspace to output up
-bindsym $mod+Ctrl+Right move workspace to output right
+# move focus between workspaces
+bindsym $mod+Ctrl+$left focus workspace left
+bindsym $mod+Ctrl+$right focus workspace right
+#bindsym $mod+Ctrl+Left focus workspace left
+#bindsym $mod+Ctrl+Down move workspace to output down
+#bindsym $mod+Ctrl+Up move workspace to output up
+#bindsym $mod+Ctrl+Right move workspace to output right
 #
 #
 # Workspaces:
-#
+
+    bindsym Mod4+Tab workspace next_on_output
+    bindsym Mod4+Shift+Tab workspace prev_on_output
+	# create next available workspace on current output
+	bindsym $mod+Minus exec i3-empty
+	bindsym $mod+Shift+Minus exec i3-empty -m
+
     # switch to workspace
     bindsym $mod+1 workspace 1
     bindsym $mod+2 workspace 2
@@ -151,7 +160,8 @@ bindsym $mod+Ctrl+Right move workspace to output right
     bindsym $mod+e layout toggle split
 
     # Make the current focus fullscreen
-    bindsym $mod+f fullscreen
+    bindsym $mod+f fullscreen toggle
+    bindsym $mod+Shift+f fullscreen toggle global
 
     # Toggle the current focus between tiling and floating mode
     bindsym $mod+Shift+space floating toggle
@@ -163,9 +173,18 @@ bindsym $mod+Ctrl+Right move workspace to output right
     # move focus to the parent container
     bindsym $mod+a focus parent
 
-		# focus the child container
-		bindsym $mod+Shift+a focus child
+	# focus the child container
+	bindsym $mod+Shift+a focus child
 
+#
+# Marks
+#
+
+	# read 1 character and mark the current window with this character
+	bindsym $mod+z exec i3-input -F 'mark %s' -l 1 -P 'Mark: '
+
+	# read 1 character and go to the window with the character
+	bindsym $mod+Shift+z exec i3-input -F '[con_mark="%s"] focus' -l 1 -P 'Goto: '
 
 #
 # Scratchpad:
