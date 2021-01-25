@@ -2,7 +2,8 @@
 # Adapted from @SeerLite's bspc kak script https://discuss.kakoune.com/t/session-management-1-session-per-desktop-on-bspwm/1281
 if [[ "$1" == "-h" ]]; then
     echo 'Create or connect a given kakoune session, or "default".'
-    echo 'Usage: kak [-s session] [kak arguments]'
+    echo 'Usage: kaks [-c session] [kak arguments]'
+    echo 'HINT: alias kak=kaks'
     exit
 elif [[ $# -ge 2 ]] && [[ "$1" == "-s" ]]; then
     SESSION=$2
@@ -11,10 +12,12 @@ elif [[ $# -ge 2 ]] && [[ "$1" == "-s" ]]; then
 else SESSION=default
 fi
     
-kak -clear
+kak=$(which kak)
+$kak -clear
+
 # if session is found, connect to it. otherwise create it
-if kak -l | grep -q "^${SESSION}$"; then
-    exec kak -c "$SESSION" "$@"
+if $kak -l | grep -q "^${SESSION}$"; then
+    exec $kak -c "$SESSION" "$@"
 else
-    exec kak -s "$SESSION" "$@"
+    exec $kak -s "$SESSION" "$@"
 fi

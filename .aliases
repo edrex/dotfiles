@@ -1,4 +1,5 @@
 #alias e='f -e $EDITOR' # quick opening files with EDITOR
+alias kak=kaks
 alias o='a -e xdg-open' # quick opening files with xdg-open
 alias t='task'
 alias ti='timew'
