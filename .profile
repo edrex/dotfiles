@@ -1,5 +1,5 @@
-export PATH=$HOME/bin:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.npm/bin:$PATH
-export PATH="$PATH:$(ruby -e 'puts Gem.user_dir')/bin"
+export PATH=$HOME/bin:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.npm/bin:$HOME/.emacs.d/bin:$PATH
+#export PATH="$PATH:$(ruby -e 'puts Gem.user_dir')/bin"
 
 export SRCPATH=$HOME/src # where external source repositories get checked out
 export MYSRCPATH=$SRCPATH/github.com/edrex
@@ -8,16 +8,16 @@ export HOMEREPO=$MYSRCPATH/dotfiles
 export ETCREPO=$MYSRCPATH/etc
 
 # Set up Node Version Manager
-export NVM_DIR="$HOME/.nvm"                            # You can change this if you want.
-export NVM_SOURCE="/usr/share/nvm"                     # The AUR package installs it to here.
-[ -s "$NVM_SOURCE/nvm.sh" ] && . "$NVM_SOURCE/nvm.sh"  # Load NVM
-nvm use 12
+#export NVM_DIR="$HOME/.nvm"                            # You can change this if you want.
+#export NVM_SOURCE="/usr/share/nvm"                     # The AUR package installs it to here.
+#[ -s "$NVM_SOURCE/nvm.sh" ] && . "$NVM_SOURCE/nvm.sh"  # Load NVM
+#nvm use 12
 
 export GOPATH=$HOME
 export GOROOT="$(go env GOROOT)"
-export EDITOR=kak
+export EDITOR=emacsclient\ -t
 # export EDITOR=vim
-export WIKI_EDITOR="kaks wiki"
+# export WIKI_EDITOR=kak
 export NVIM_LISTEN_ADDRESS=/tmp/eric-nvimsocket
 # export EDITOR=nsvc
 export TERMINAL=sakura

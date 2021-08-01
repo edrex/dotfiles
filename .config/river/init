@@ -13,25 +13,26 @@ EMPTY_TERM="exec-with-pwd $TERMINAL"
 
 interm=$TERMINAL # some terms need -e for exec etc
 
-riverctl spawn albert # launcher
-riverctl spawn mako --default-timeout 10000 # notifications
-riverctl spawn kanshi # output profiles
+riverctl spawn "albert # launcher"
+riverctl spawn "mako --default-timeout 10000 # notifications"
+riverctl spawn "kanshi # output profiles"
 
 # Use the "logo" key as the primary modifier
 mod="Mod4"
-#mod="Mod1" #alt
+# for running nested to test
+mod="Mod1" #alt
 
-riverctl map normal $mod+Shift Return spawn $TERMINAL
-riverctl map normal $mod D spawn albert toggle
+riverctl map normal $mod+Shift Return spawn "$TERMINAL"
+riverctl map normal $mod D spawn "albert toggle"
 
-riverctl map normal $mod i spawn $interm journal -p 
-riverctl map normal $mod+Shift i spawn $interm journal -pf
-riverctl map normal $mod o spawn $interm wf
-riverctl map normal $mod+Shift o spawn $interm wff
+riverctl map normal $mod i spawn "$interm journal -p "
+riverctl map normal $mod+Shift i spawn "$interm journal -pf"
+riverctl map normal $mod o spawn "$interm wf"
+riverctl map normal $mod+Shift o spawn "$interm wff"
 
 riverctl map normal $mod+Ctrl s spawn "screenshot"
 # start recording a video
-riverctl map normal $mod+Ctrl+Shift s spawn $interm "screencap"
+riverctl map normal $mod+Ctrl+Shift s spawn "$interm "screencap""
 riverctl map normal $mod n spawn "networkmanager_dmenu"
 riverctl map normal $mod b spawn "btmenu"
 
@@ -126,10 +127,10 @@ riverctl map normal $mod Space toggle-float
 riverctl map normal $mod F toggle-fullscreen
 
 # Mod+{Up,Right,Down,Left} to change layout orientation
-riverctl map normal $mod Up layout rivertile top
-riverctl map normal $mod Right layout rivertile right
-riverctl map normal $mod Down layout rivertile bottom
-riverctl map normal $mod Left layout rivertile left
+riverctl map normal $mod Up    send-layout-cmd rivertile "main-location top"
+riverctl map normal $mod Right send-layout-cmd rivertile "main-location right"
+riverctl map normal $mod Down  send-layout-cmd rivertile "main-location bottom"
+riverctl map normal $mod Left  send-layout-cmd rivertile "main-location left"
 
 # Mod+S to change to Full layout
 riverctl map normal $mod S layout full
@@ -195,3 +196,8 @@ riverctl background-color "#000000"
 riverctl border-color-focused "#AAAAAA"     
 riverctl border-color-unfocused "#00000000"
 riverctl background-color "#000000"
+
+# Set and exec into the default layout generator, rivertile.
+# River will send the process group of the init executable SIGTERM on exit.
+riverctl default-layout rivertile
+exec rivertile

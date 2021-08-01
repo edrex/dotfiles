@@ -62,5 +62,9 @@ if __name__ == '__main__':
     # set terminal title so we know what we're editing
     print(f'\33]0;{journal_dir}{ target }\a', end='', flush=True)
     editor = os.environ.get('WIKI_EDITOR') or os.environ.get('EDITOR') or 'vim'
-    run([editor, target, 'ToggleHideAll()<CR>'])
+    if editor == 'vim' :
+        run([editor, target, 'ToggleHideAll()<CR>'])
+    else:
+        run([editor, target])
+            
     #run([editor, target, '+Goyo'])

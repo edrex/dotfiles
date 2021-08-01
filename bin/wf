@@ -2,5 +2,5 @@
 export WIKI_EDITOR=${WIKI_EDITOR:-${EDITOR:-vim}}
 HIST=$HOME/.local/fzf-hist-wf
 cd $Wiki
-F="$(find-by-date | skim --no-sort --tac --history=$HIST --preview="bat --color=always -p --theme=base16 {}")"
+F="$(find-by-date | sk --no-sort --tac --history=$HIST --preview="bat --color=always -p --theme=base16 {}")"
 [ -z "$F" ] || $WIKI_EDITOR "$F"

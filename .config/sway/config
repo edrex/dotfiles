@@ -1,6 +1,7 @@
 # Read `man 5 sway` for a complete reference.
 
 #exec kanshi #dynamic output config
+# until https://github.com/emersion/kanshi/issues/43 is fixed mnn
 exec_always pkill kanshi; exec kanshi
 #output * bg /usr/share/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 
@@ -15,11 +16,19 @@ input "1739:30383:DLL075B:01_06CB:76AF_Touchpad" {
 	dwt enabled
 }
 
+# scroll wheel on lauren's mouse is slooooowwwww
+#input "1118:1957:Microsoft_Microsoft___2.4GHz_Transceiver_v9.0_Mouse" scroll_factor 10
+input "1452:781:Dennis___s_Mouse" scroll_factor 3
+
 font pango:DejaVu Sans Mono 10
 for_window [class=".*"] title_format "<span background='#ff0000'>%title</span>"
 
+exec blueman-applet
 exec mako --default-timeout 10000 # notifications
-exec albert #launcher
+# exec gammastep-indicator
+exec poweralertd
+exec wlsunset -l 45.5 -L -122.6
+#exec albert #launcher
 exec swaymsg command seat "*" hide_cursor 5000
 exec swayidle -w\
     idlehint 120 \
@@ -59,9 +68,11 @@ bindsym $mod+Shift+c kill
 bindsym $mod+d exec $menu
 bindsym $mod+Shift+d exec $winmenu
 bindsym $mod+Shift+r reload
-
+bindsym $mod+m exec wlr-randr --output eDP-1 --off --output DP-1 --transform normal
+bindsym $mod+Shift+m sh -c "kanshi & sleep 3 ; kill %%"
 #assign [title="journal"] 8
-bindsym $mod+i exec $interm journal -p 
+# bindsym $mod+i exec $interm journal -p
+bindsym $mod+i exec org-capture
 bindsym $mod+Shift+i exec $interm journal -pf
 bindsym $mod+o exec $interm wf
 bindsym $mod+Shift+o exec $interm wff
@@ -69,7 +80,8 @@ bindsym $mod+Shift+o exec $interm wff
 bindsym $mod+Ctrl+s exec "screenshot"
 # start recording a video
 bindsym $mod+Ctrl+Shift+s exec $interm "screencap"
-bindsym $mod+n exec "networkmanager_dmenu"
+bindsym $mod+n exec "emacsclient -nc"
+bindsym $mod+Shift+n exec "networkmanager_dmenu"
 bindsym $mod+b exec "btmenu"
 bindsym $mod+g exec "wl-gammactl"
 
@@ -226,8 +238,9 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 
-bindsym $mod+Shift+b bar mode toggle
-
+# toggle hide bar
+# bindsym $mod+Shift+b bar mode toggle
+bindsym $mod+Shift+b killall -SIGUSR1 waybar
 # targets currently active output
 # http://blog.kopis.de/2015/07/21/changing-volume-using-pactl/
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume $(pactl list short sinks|grep RUNNING|awk '{print $1}') +5% #increase sound volume

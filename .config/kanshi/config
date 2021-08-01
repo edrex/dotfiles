@@ -2,8 +2,29 @@ profile nomad {
 	output eDP-1 enable position 0,0 scale 2
 }
 
-profile desk {
+profile deskn {
+	output eDP-1 enable position 240,1080 scale 2
+    output "Goldstar Company Ltd 23EA63" enable position 0,0 transform normal
+}
+profile deskr {
+	output eDP-1 enable position 0,0 scale 2
+    output "Goldstar Company Ltd 23EA63" enable position 1600,0 transform 270
+}
+profile deskl {
 	output eDP-1 enable position 1080,240 scale 2
     output "Goldstar Company Ltd 23EA63" enable position 0,0 transform 90
 }
+profile laurenslivingroom {
+	output eDP-1 enable position 160,1080 scale 2
+    output "Samsung Electric Company SAMSUNG 0x00000000" enable position 0,0
+}
 
+profile laurensoffice {
+	output eDP-1 enable position 160,1080 scale 2
+    output "HannStar Display Corp Hanns.G HH241 012RX3XY00882" position 0,0
+}
+
+profile casita {
+    output "Dell Inc. DELL U2415 CFV9N6BL3GUS" transform 270
+    output eDP-1 position 0,1920 scale 2
+}
