@@ -129,16 +129,16 @@ def tag_on(bitfield, tag_index):
 
 for i in range(0, 32):
     if tag_on(seat.focused_output.focused_tags, i):
-        if first_focused_tag is None:
-            first_focused_tag = i
-    if tag_on(seat.focused_output.occupied_tags, i):
-        if first_occupied_tag is None:
-            first_occupied_tag = i
-        elif first_focused_tag is not None and first_focused_tag < i:
-            next_occupied_tag = i
-
-if next_occupied_tag is None:
-    next_occupied_tag = first_occupied_tag
+        first_focused_tag = i
+        print(f"f:{i}")
+        break
+if first_focused_tag is not None:
+    for i in range(1, 32):
+        t = (i+first_focused_tag)%32
+        if tag_on(seat.focused_output.occupied_tags, t):
+            next_occupied_tag = t
+            print(f"o:{i}")
+            break
 
 if next_occupied_tag is not None:
     control.add_argument("set-focused-tags")
