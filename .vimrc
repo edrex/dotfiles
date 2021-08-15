@@ -11,6 +11,9 @@ set autowriteall				" autosave current on :make (also used by vim-go)
 call plug#begin('~/.vim/plugged')
 	Plug 'tpope/vim-sensible'
 	Plug 'tpope/vim-surround'
+	Plug 'tpope/vim-commentary'
+
+
 
 	Plug 'vimwiki/vimwiki'
 	"Plug 'tbabej/taskwiki'

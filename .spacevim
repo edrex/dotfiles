@@ -11,10 +11,10 @@ let g:spacevim_plug_home = '~/.vim/plugged'
 " Enable the existing layers in space-vim.
 " Refer to https://github.com/liuchengxu/space-vim/blob/master/layers/LAYERS.md for all available layers.
 let g:spacevim_layers = [
-			\ 'better-defaults', 'fzf', 'spacevim', 'git', 'github', 'lightline'
+			\ 'better-defaults', 'fzf', 'which-key', 'spacevim', 'git', 'github', 'lightline'
 			\ , 'go', 'code-snippets', 'syntax-checking', 'ctags'
 			\ , 'editing', 'formatting', 'programming', 'better-motion'
-      \ , 'vimwiki'
+      "\ , 'vimwiki'
       "\ , 'taskwarrior'
       \ , 'file-manager'
       \ ]

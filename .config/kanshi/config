@@ -19,9 +19,14 @@ profile laurenslivingroom {
     output "Samsung Electric Company SAMSUNG 0x00000000" enable position 0,0
 }
 
-profile laurensoffice {
+profile laurensoffice-old {
 	output eDP-1 enable position 160,1080 scale 2
     output "HannStar Display Corp Hanns.G HH241 012RX3XY00882" position 0,0
+}
+
+profile up {
+    output "Dell Inc. DELL U2415 CFV9N6BL3GUS" enable position 0,0 transform normal
+	output eDP-1 enable position 160,1080 scale 2
 }
 
 profile casita {

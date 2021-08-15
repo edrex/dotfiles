@@ -4,6 +4,7 @@ cd ~/src/github.com/swaywm/wlroots \
 && ninja -C build \
 && sudo ninja -C build install\
 && cd ~/src/github.com/swaywm/sway \
+&& git pull \
 && meson $MEA build -Denable-tray=true \
 && ninja -C build \
 && sudo ninja -C build install \
