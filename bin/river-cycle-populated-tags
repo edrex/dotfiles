@@ -1,6 +1,7 @@
 #!/bin/env python3
 
 import time
+from array import array
 from pywayland.client import Display
 from pywayland.protocol.wayland import WlOutput
 from pywayland.protocol.wayland import WlSeat
@@ -42,8 +43,9 @@ class Output(object):
     def handle_focused_tags(self, output_status, tags):
         self.focused_tags = tags
 
-    def handle_view_tags(self, output_status, view_tags):
+    def handle_view_tags(self, output_status, bview_tags):
         self.occupied_tags = 0
+        view_tags = array('I', bview_tags)
         for tags in view_tags:
             self.occupied_tags |= tags
 
@@ -130,14 +132,12 @@ def tag_on(bitfield, tag_index):
 for i in range(0, 32):
     if tag_on(seat.focused_output.focused_tags, i):
         first_focused_tag = i
-        print(f"f:{i}")
         break
 if first_focused_tag is not None:
     for i in range(1, 32):
         t = (i+first_focused_tag)%32
         if tag_on(seat.focused_output.occupied_tags, t):
             next_occupied_tag = t
-            print(f"o:{i}")
             break
 
 if next_occupied_tag is not None:
