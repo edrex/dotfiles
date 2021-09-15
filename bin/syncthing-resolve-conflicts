@@ -8,8 +8,8 @@ declare -r myver='1.1.0'
 
 diffprog=${DIFFPROG:-'vim -d'}
 USE_COLOR='y'
-declare -i USE_FIND=0
-declare DIRECTORY=""
+declare -i USE_FIND=1
+declare DIRECTORY="${PWD}"
 declare -a ignored
 declare -a nontext
 
