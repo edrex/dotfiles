@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 
-# Check for sync conflicts and resolve them. Idea from the shell script
-# 'pacdiff'.
+# Check for sync conflicts and resolve them. Inspired by 'pacdiff' from Arch
+# Linux.
 
 declare -r myname='syncthing-resolve-conflicts'
-declare -r myver='1.0.2'
+declare -r myver='1.1.0'
 
 diffprog=${DIFFPROG:-'vim -d'}
-findprog=${FINDPROG:-''}
 USE_COLOR='y'
 declare -i USE_FIND=0
+declare DIRECTORY=""
 declare -a ignored
 declare -a nontext
 
@@ -72,18 +72,20 @@ usage() {
 ${myname} v${myver}
 
 Inspired by 'pacdiff'. A simple program to merge or remove sync conflicts.
-Locate is used to find conflicts. In case the database is not recent, run
-'updatedb'.
+'locate' (or 'find', see -f option) is used to find conflicts. In case the
+database is not recent, run 'updatedb'.
 
-Usage: $myname [-o] [-f] [--nocolor]
+Usage: $myname [-d DIR] [-f] [-o] [--nocolor]
 
 General Options:
-  -o/--output       print files instead of merging them
-  -f/--find         use find instead of locate; scans only the home directory
-                    of the current user
-  --nocolor         remove colors from output
-  -v/--version      print version and exit
-  -h/--help         print usage and exit
+  -d/--directory DIR  only scan for sync conflicts in the directory DIR
+  -f/--find           use find instead of locate; by default, scan the home
+                      directory of the current user, but please see the -d
+                      option
+  -o/--output         print files instead of merging them
+  --nocolor           remove colors from output
+  -v/--version        print version and exit
+  -h/--help           print usage and exit
 
 Environment Variables:
   DIFFPROG          override the merge program: (default: 'vim -d')
@@ -96,35 +98,63 @@ EOF
 
 version() {
     printf "%s %s\\n" "$myname" "$myver"
-    echo 'Copyright (C) 2018 Dominik Schrempf <dominik.schrempf@gmail.com>'
+    echo 'Copyright (C) 2020 Dominik Schrempf <dominik.schrempf@gmail.com>'
     echo 'Inspired by "pacdiff".'
 }
 
 cmd() {
     if (( USE_FIND )); then
-        find $PWD -name '*sync-conflict*' -print0
+        if [[ -z $DIRECTORY ]]
+        then
+            # echo "find ~/ -name '*sync-conflict*' -print0"
+            find ~/ -name '*sync-conflict*' -print0
+        else
+            # echo "find $DIRECTORY -name '*sync-conflict*' -print0" >&2
+            find $DIRECTORY -name '*sync-conflict*' -print0
+        fi
     else
         case "$(uname -s)" in
             Darwin)
-                locate -0 sync-conflict;;
+                locate_cmd=(locate -0);;
             *)
-                locate -0 -e -b sync-conflict;;
+                locate_cmd=(locate -0 -e);;
         esac
+        if [[ -z $DIRECTORY ]]
+        then
+            locate_opt=(-b)
+            glob="sync-conflict"
+        else
+            locate_opt=(-r)
+            glob="^${DIRECTORY}.*sync-conflict.*"
+        fi
+        # echo "${locate_cmd[@]}" "${locate_opt[@]}" "$glob" >&2
+        "${locate_cmd[@]}" "${locate_opt[@]}" "$glob"
     fi
+}
+
+check_dir() {
+    if [[ ! -d $1 ]]
+    then
+        echo "Not a directory: $1."
+        exit 1
+    fi
+    realpath "$1"
 }
 
 while [[ -n "$1" ]]; do
     case "$1" in
-        -o|--output)
-            OUTPUTONLY=1;;
-        -f|--find)
-            USE_FIND=1;;
-        --nocolor)
-            USE_COLOR='n';;
-        -v|-V|--version)
-            version; exit 0;;
         -h|--help)
             usage; exit 0;;
+        -v|-V|--version)
+            version; exit 0;;
+        -d|--directory)
+            DIRECTORY=$(check_dir "$2"); shift;;
+        -f|--find)
+            USE_FIND=1;;
+        -o|--output)
+            OUTPUTONLY=1;;
+        --nocolor)
+            USE_COLOR='n';;
         *)
             usage; exit 1;;
     esac
@@ -132,7 +162,7 @@ while [[ -n "$1" ]]; do
 done
 
 # Check if messages are to be printed using color.
-unset ALL_OFF BOLD BLUE GREEN RED YELLOW
+unset ALL_OFF BLUE GREEN RED YELLOW
 if [[ -t 2 && $USE_COLOR = "y" ]]; then
     # Prefer terminal safe colored and bold text when tput is supported.
     if tput setaf 0 &>/dev/null; then
@@ -149,7 +179,7 @@ if [[ -t 2 && $USE_COLOR = "y" ]]; then
         YELLOW="\\e[1;33m"
     fi
 fi
-readonly ALL_OFF BOLD BLUE GREEN RED YELLOW
+readonly ALL_OFF BLUE GREEN RED YELLOW
 
 if [ -z "$(command -v "${diffprog%% *}")" ] && (( ! OUTPUTONLY )); then
     error "Cannot find the $diffprog binary required for viewing differences."
@@ -199,35 +229,23 @@ while IFS= read -u 3 -r -d '' conflict; do
         ignored+=("$conflict")
         continue
     elif test "$conflict" -ef "$file"; then
-        warning "Original file and conflict file point to the same file. Removing conflict."
-        plain "$(rm -v "$conflict")"
+        warning "Original file and conflict file point to the same file. Ignoring conflict."
         continue
     elif cmp -s "$conflict" "$file"; then
         msg2 "Files are identical, removing..."
         plain "$(rm -v "$conflict")"
         continue
     else
-			ask "(V)iew, (S)kip, (D)elete sync conflict, Rename, (O)verwrite with sync conflict, (Q)uit: [v/s/d/r/o/q] "
+        ask "(V)iew, (S)kip, (R)emove sync conflict, (O)verwrite with sync conflict, (Q)uit: [v/s/r/o/q] "
         # shellcheck disable=SC2162
         while read c; do
             case $c in
                 q|Q) exit 0;;
-                d|D) plain "$(rm -v "$conflict")"; break ;;
+                r|R) plain "$(rm -v "$conflict")"; break ;;
                 o|O) plain "$(mv -v "$conflict" "$file")"; break ;;
-                r|R)
-										ask "filename? "
-										read f
-										if [ -z "$f" ] ; then
-											echo "empty. try again"
-											continue
-										else
-											plain "$(mv -v "$conflict" "$(dirname $conflict)/$f")"
-											break
-										fi
-										;;
                 v|V)
                     $diffprog "$conflict" "$file"
-										ask "(V)iew, (S)kip, (D)elete sync conflict, Rename, (O)verwrite with sync conflict, (Q)uit: [v/s/d/r/o/q] "
+                    ask "(V)iew, (S)kip, (R)emove sync conflict, (O)verwrite with sync conflict, (Q)uit: [v/s/r/o/q] "
                     continue ;;
                 s|S) break ;;
                 *) ask "Invalid answer. Try again: [v/s/r/o/q] "; continue ;;
