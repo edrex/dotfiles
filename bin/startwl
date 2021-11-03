@@ -16,5 +16,6 @@ export QT_QPA_PLATFORMTHEME="qt5ct"
 
 export GPG_TTY=$(tty)
 gpg-connect-agent updatestartuptty /bye >/dev/null
+systemctl --user restart gpg-agent
 
 ${COMPOSITOR} > $HOME/.log/$(basename ${COMPOSITOR}).log 2>&1
