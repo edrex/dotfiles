@@ -10,13 +10,13 @@
 #   qute://help/configuring.html
 #   qute://help/settings.html
 
-# Uncomment this to still load settings configured via autoconfig.yml
-config.load_autoconfig()
+# Change the argument to True to still load settings configured via autoconfig.yml
+config.load_autoconfig(False)
 
 # Aliases for commands. The keys of the given dictionary are the
 # aliases, while the values are the commands they map to.
 # Type: Dict
-c.aliases = {'w': 'session-save', 'q': 'quit', 'wq': 'quit --save'}
+c.aliases = {'q': 'quit', 'w': 'session-save', 'wq': 'quit --save'}
 
 # Load a restored tab as soon as it takes focus.
 # Type: Bool
@@ -28,6 +28,17 @@ c.session.lazy_restore = True
 # list) will work.
 # Type: List of String
 c.qt.args = ['ignore-gpu-blacklist', 'enable-accelerated-2d-canvas', 'enable-gpu-memory-buffer-video-frames', 'enable-gpu-rasterization', 'enable-native-gpu-memory-buffers', 'enable-oop-rasterization', 'enable-zero-copy']
+
+# Force software rendering for QtWebEngine. This is needed for
+# QtWebEngine to work with Nouveau drivers and can be useful in other
+# scenarios related to graphic issues.
+# Type: String
+# Valid values:
+#   - software-opengl: Tell LibGL to use a software implementation of GL (`LIBGL_ALWAYS_SOFTWARE` / `QT_XCB_FORCE_SOFTWARE_OPENGL`)
+#   - qt-quick: Tell Qt Quick to use a software renderer instead of OpenGL. (`QT_QUICK_BACKEND=software`)
+#   - chromium: Tell Chromium to disable GPU support and use Skia software rendering instead. (`--disable-gpu`)
+#   - none: Don't force software rendering.
+c.qt.force_software_rendering = 'qt-quick'
 
 # Which Chromium process model to use. Alternative process models use
 # less resources, but decrease security and robustness. See the
@@ -66,7 +77,14 @@ c.auto_save.session = True
 # unknown-3rdparty` per-domain on QtWebKit will have the same effect as
 # `all`. If this setting is used with URL patterns, the pattern gets
 # applied to the origin/first party URL of the page making the request,
-# not the request URL.
+# not the request URL. With QtWebEngine 5.15.0+, paths will be stripped
+# from URLs, so URL patterns using paths will not match. With
+# QtWebEngine 5.15.2+, subdomains are additionally stripped as well, so
+# you will typically need to set this setting for `example.com` when the
+# cookie is set on `somesubdomain.example.com` for it to work properly.
+# To debug issues with this setting, start qutebrowser with `--debug
+# --logfilter network --debug-flag log-cookies` which will show all
+# cookies being set.
 # Type: String
 # Valid values:
 #   - all: Accept all cookies.
@@ -83,7 +101,14 @@ config.set('content.cookies.accept', 'all', 'chrome-devtools://*')
 # unknown-3rdparty` per-domain on QtWebKit will have the same effect as
 # `all`. If this setting is used with URL patterns, the pattern gets
 # applied to the origin/first party URL of the page making the request,
-# not the request URL.
+# not the request URL. With QtWebEngine 5.15.0+, paths will be stripped
+# from URLs, so URL patterns using paths will not match. With
+# QtWebEngine 5.15.2+, subdomains are additionally stripped as well, so
+# you will typically need to set this setting for `example.com` when the
+# cookie is set on `somesubdomain.example.com` for it to work properly.
+# To debug issues with this setting, start qutebrowser with `--debug
+# --logfilter network --debug-flag log-cookies` which will show all
+# cookies being set.
 # Type: String
 # Valid values:
 #   - all: Accept all cookies.
@@ -91,6 +116,27 @@ config.set('content.cookies.accept', 'all', 'chrome-devtools://*')
 #   - no-unknown-3rdparty: Accept cookies from the same origin only, unless a cookie is already set for the domain. On QtWebEngine, this is the same as no-3rdparty.
 #   - never: Don't accept cookies at all.
 config.set('content.cookies.accept', 'all', 'devtools://*')
+
+# Allow websites to request geolocations.
+# Type: BoolAsk
+# Valid values:
+#   - true
+#   - false
+#   - ask
+config.set('content.geolocation', True, 'https://earth.google.com')
+
+# Allow websites to request geolocations.
+# Type: BoolAsk
+# Valid values:
+#   - true
+#   - false
+#   - ask
+config.set('content.geolocation', False, 'https://www.homedepot.com')
+
+# Value to send in the `Accept-Language` header. Note that the value
+# read from JavaScript is always the global value.
+# Type: String
+config.set('content.headers.accept_language', '', 'https://matchmaker.krunker.io/*')
 
 # User agent to send.  The following placeholders are defined:  *
 # `{os_info}`: Something like "X11; Linux x86_64". * `{webkit_version}`:
@@ -122,7 +168,7 @@ config.set('content.headers.user_agent', 'Mozilla/5.0 ({os_info}) AppleWebKit/{w
 # between 5.12 and 5.14 (inclusive), changing the value exposed to
 # JavaScript requires a restart.
 # Type: FormatString
-config.set('content.headers.user_agent', 'Mozilla/5.0 ({os_info}) AppleWebKit/{webkit_version} (KHTML, like Gecko) {upstream_browser_key}/{upstream_browser_version} Safari/{webkit_version} Edg/{upstream_browser_version}', 'https://accounts.google.com/*')
+config.set('content.headers.user_agent', 'Mozilla/5.0 ({os_info}; rv:90.0) Gecko/20100101 Firefox/90.0', 'https://accounts.google.com/*')
 
 # User agent to send.  The following placeholders are defined:  *
 # `{os_info}`: Something like "X11; Linux x86_64". * `{webkit_version}`:
@@ -147,6 +193,602 @@ config.set('content.images', True, 'chrome-devtools://*')
 # Load images automatically in web pages.
 # Type: Bool
 config.set('content.images', True, 'devtools://*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.100.89.138.29/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.192.168.1.1/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.ameridroid.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.anniv.co/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.anthonyholden.tumblr.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.apps.irs.gov/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.apps.nationalmap.gov/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.askinglot.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.auth.atlassian.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.boardgamegeek.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.broadbandmap.fcc.gov/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.bugs.archlinux.org/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.calendar.google.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.cardgames.io/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.ccwu.me/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.channelstore.roku.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.clearlinux.org/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.cloud.ibm.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.cobaltsoul.pdxhub.org/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.codeparade.itch.io/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.community.ui.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.costco.interstatebatteries.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.cryptpad.fr/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.datdot.org/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.dev.scuttlebutt.nz/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.developer.arm.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.discord.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.discussions.apple.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.dns.he.net/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.docs.hetzner.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.docs.invidious.io/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.earth.nullschool.net/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.everymac.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.fiberine.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.firstlook.media/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.floss.social/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.flourish.studio/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.forum.openmediavault.org/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.framagit.org/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.fundoss.org/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.gateway.foresee.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.gingerhazing.gumroad.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.git.ophanim.de/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.groups.google.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.gsuitetips.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.help.ui.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.hn.algolia.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.html.duckduckgo.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.hydra.cons.org.nz/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.hydra.mcwhirter.io/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.itch.io/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.jellyfin.org/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.kde.org/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.keys.openpgp.org/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.killsixbilliondemons.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.login.tailscale.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.manual.seafile.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.mesgmy.ebay.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.metal.equinix.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.mybinder.org/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.mynoise.net/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.necropoliscomic.tumblr.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.nextdoor.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.notebooks.azure.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.pcsrefurbished.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.pine64.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.pkgs.org/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.portland.craigslist.org/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.projects.fivethirtyeight.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.rhadhesives.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.ridewithgps.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.rosden.itch.io/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.rubjo.github.io/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.sa.www4.irs.gov/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.scrabble.77177.de/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.serverfault.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.shop.centurylink.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.shopkits.eink.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.social.mcwhirter.io/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.soundcloud.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.spectrum-os.org/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.stackoverflow.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.start.atlassian.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.stateparks.oregon.gov/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.store.santansolar.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.surfshark.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.tailscale.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.thethinkingshop.org/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.towardsdatascience.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.trello.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.view.matrix.org/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.wayfarervans.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.web.archive.org/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.webcache.googleusercontent.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.wholesale.frontiercoop.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.worldview.earthdata.nasa.gov/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.aliexpress.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.armbian.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.autowrecking.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.centurylink.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.checklifeline.org/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.clearos.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.comic-rocket.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.costco.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.d3-graph-gallery.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.data-to-viz.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.dell.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.dropbox.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.etsy.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.fcc.gov/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.frontieroffers.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.generatorland.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.goodreads.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.harborfreight.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.homedepot.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.ibm.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.inaturalist.org/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.instagram.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.interstatebatteries.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.irs.gov/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.irv2.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.isc.ro/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.kickstarter.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.mobileread.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.newegg.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.newspapers.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.nps.gov/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.openprinting.org/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.oregonhikers.org/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.pine64.org/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.pinterest.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.pogo.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.providence.org/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.quora.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.raspberrypi.org/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.recreation.gov/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.reflectixinc.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.reservecalifornia.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.sewingpartsonline.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.shift2bikes.org/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.sparkfun.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.stephouse.net/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.taxact.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.tumblr.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.twitch.tv/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.van-magazine.fr/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.whistleout.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.xfinity.com/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.www.zefrank.com/*')
 
 # Enable JavaScript.
 # Type: Bool
@@ -698,6 +1340,10 @@ config.set('content.javascript.enabled', True, '*://*.emacs.stackexchange.com/*'
 
 # Enable JavaScript.
 # Type: Bool
+config.set('content.javascript.enabled', True, '*://*.duckduckgo.com/*')
+
+# Enable JavaScript.
+# Type: Bool
 config.set('content.javascript.enabled', True, 'chrome-devtools://*')
 
 # Enable JavaScript.
@@ -714,7 +1360,15 @@ config.set('content.javascript.enabled', True, 'qute://*/*')
 
 # Enable JavaScript.
 # Type: Bool
-config.set('content.javascript.enabled', True, '*://*.duckduckgo.com/*')
+config.set('content.javascript.enabled', True, '*://*.av.tib.eu/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.akhater.github.io/*')
+
+# Enable JavaScript.
+# Type: Bool
+config.set('content.javascript.enabled', True, '*://*.notes.huy.rocks/*')
 
 # Allow websites to record audio.
 # Type: BoolAsk
@@ -819,10 +1473,10 @@ c.completion.cmd_history_max_items = -1
 # Type: Int
 c.downloads.remove_finished = -1
 
-# Editor (and arguments) to use for the `open-editor` command. The
-# following placeholders are defined:  * `{file}`: Filename of the file
-# to be edited. * `{line}`: Line in which the caret is found in the
-# text. * `{column}`: Column in which the caret is found in the text. *
+# Editor (and arguments) to use for the `edit-*` commands. The following
+# placeholders are defined:  * `{file}`: Filename of the file to be
+# edited. * `{line}`: Line in which the caret is found in the text. *
+# `{column}`: Column in which the caret is found in the text. *
 # `{line0}`: Same as `{line}`, but starting from index 0. * `{column0}`:
 # Same as `{column}`, but starting from index 0.
 # Type: ShellCommand
@@ -832,6 +1486,14 @@ c.editor.command = ['emacsclient', '-nc', '{file}']
 # work with the `:scroll-px` command.
 # Type: Bool
 c.scrolling.smooth = True
+
+# When to show the statusbar.
+# Type: String
+# Valid values:
+#   - always: Always show the statusbar.
+#   - never: Always hide the statusbar.
+#   - in-mode: Show the statusbar when in modes other than normal mode.
+c.statusbar.show = 'always'
 
 # Position of the status bar.
 # Type: VerticalPosition
@@ -865,7 +1527,8 @@ c.tabs.tabs_are_windows = True
 # * `{quoted}` quotes all characters (for `slash/and&amp` this
 # placeholder   expands to `slash%2Fand%26amp`). * `{unquoted}` quotes
 # nothing (for `slash/and&amp` this placeholder   expands to
-# `slash/and&amp`).  The search engine named `DEFAULT` is used when
+# `slash/and&amp`). * `{0}` means the same as `{}`, but can be used
+# multiple times.  The search engine named `DEFAULT` is used when
 # `url.auto_search` is turned on and something else than a URL was
 # entered to be opened. Other search engines can be used by prepending
 # the search engine name to the search term, e.g. `:open google
@@ -885,7 +1548,7 @@ c.zoom.default = '100%'
 # Background color for webpages if unset (or empty to use the theme's
 # color).
 # Type: QtColor
-c.colors.webpage.bg = None
+c.colors.webpage.bg = 'white'
 
 # Render all web contents using a dark theme. Example configurations
 # from Chromium's `chrome://flags`:  - "With simple HSL/CIELAB/RGB-based
@@ -897,7 +1560,7 @@ c.colors.webpage.bg = None
 # `colors.webpage.darkmode.threshold.background` to 205.  - "With
 # selective inversion of everything": Combines the two variants   above.
 # Type: Bool
-# c.colors.webpage.darkmode.enabled = False
+c.colors.webpage.darkmode.enabled = False
 
 # Contrast for dark mode. This only has an effect when
 # `colors.webpage.darkmode.algorithm` is set to `lightness-hsl` or
@@ -906,11 +1569,11 @@ c.colors.webpage.bg = None
 c.colors.webpage.darkmode.contrast = 0.0
 
 # Bindings for normal mode
+config.bind(',c', 'spawn org-capture -k j [[{url}][{title}]]')
+config.bind(',l', 'config-cycle colors.webpage.darkmode.enabled ;; restart')
 config.bind(',n', 'config-:cycle content.user_stylesheets "~/src/github.com/alphapapa/solarized-everything-css/css/solarized-dark/solarized-dark-all-sites.css" ""')
 config.bind(',p', 'spawn --userscript password_fill {url}')
 config.bind(',v', 'spawn mpv {url}')
-config.bind(',c', 'spawn org-capture -k j [[{url}][{title}]]')
-config.bind(',l', 'config-cycle colors.webpage.darkmode.enabled ;; restart')
 config.bind('d', 'close')
 config.bind('xs', 'config-cycle --print --pattern *://*.{url:host}/* content.javascript.enabled ;; reload')
 config.bind('yo', 'yank inline [[{url}][{title}]]')

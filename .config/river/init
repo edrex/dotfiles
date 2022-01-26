@@ -1,9 +1,9 @@
 #!/bin/sh
 
 # Use the "logo" key as the primary modifier
-#mod="Mod4"
+mod="Mod4"
 # for running nested to test
-mod="Mod1" #alt
+#mod="Mod1" #alt
 
 #TODO: make these work in river?
 EMPTY_TERM="exec-with-pwd $TERMINAL"

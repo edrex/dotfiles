@@ -56,3 +56,5 @@ p() {
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+if [ -e /home/eric/.nix-profile/etc/profile.d/nix.sh ]; then . /home/eric/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+eval "$(direnv hook zsh)"

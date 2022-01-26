@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [ $# -lt 2 ]; then
-    echo "Usage: ${0} program i3cmd
+    echo "Usage: ${0} i3_command program
     eg: ${0} 'floating enable' termite"
     exit
 fi

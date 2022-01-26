@@ -15,8 +15,9 @@ export ETCREPO=$MYSRCPATH/etc
 
 export GOPATH=$HOME
 export GOROOT="$(go env GOROOT)"
-export EDITOR=emacsclient\ -t
-# export EDITOR=vim
+# export EDITOR=emacsclient\ -t
+export EDITOR=vim
+export BROWSER=vivaldi-stable
 # export WIKI_EDITOR=kak
 export NVIM_LISTEN_ADDRESS=/tmp/eric-nvimsocket
 # export EDITOR=nsvc

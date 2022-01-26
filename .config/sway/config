@@ -1,6 +1,6 @@
 # Read `man 5 sway` for a complete reference.
 
-#exec kanshi #dynamic output config
+# exec kanshi #dynamic output config
 # until https://github.com/emersion/kanshi/issues/43 is fixed mnn
 exec_always pkill kanshi; exec kanshi
 #output * bg /usr/share/sway/Sway_Wallpaper_Blue_1920x1080.png fill
@@ -24,7 +24,7 @@ font pango:DejaVu Sans Mono 10
 for_window [class=".*"] title_format "<span background='#ff0000'>%title</span>"
 
 exec blueman-applet
-exec mako --default-timeout 10000 # notifications
+exec fnott # notifications
 # exec gammastep-indicator
 exec poweralertd
 exec wlsunset -l 45.5 -L -122.6
@@ -66,6 +66,7 @@ bindsym $mod+Return exec $term
 bindsym $mod+q kill
 bindsym $mod+Shift+c kill
 bindsym $mod+d exec $menu
+bindsym $mod+Space exec i3cmd_exec "floating enable" foot tydra ~/src/github.com/edrex/begin/actions.yaml
 bindsym $mod+Shift+d exec $winmenu
 bindsym $mod+Shift+r reload
 bindsym $mod+m exec wlr-randr --output eDP-1 --off --output DP-1 --transform normal
@@ -116,6 +117,10 @@ bindsym $mod+Ctrl+Shift+$down move workspace to output down
 bindsym $mod+Ctrl+Shift+$up move workspace to output up
 bindsym $mod+Ctrl+Shift+$right move workspace to output right
 # ditto, with arrow keys
+bindsym $mod+Ctrl+Shift+Left move workspace to output left
+bindsym $mod+Ctrl+Shift+Down move workspace to output down
+bindsym $mod+Ctrl+Shift+Up move workspace to output up
+bindsym $mod+Ctrl+Shift+Right move workspace to output right
 # move focus between workspaces
 bindsym $mod+Ctrl+$left focus workspace left
 bindsym $mod+Ctrl+$right focus workspace right
@@ -180,7 +185,7 @@ bindsym $mod+Ctrl+$right focus workspace right
     bindsym $mod+Shift+s sticky toggle
 
     # Swap focus between the tiling area and the floating area
-    bindsym $mod+space focus mode_toggle
+    # bindsym $mod+space focus mode_toggle
 
     # move focus to the parent container
     bindsym $mod+a focus parent
@@ -193,10 +198,10 @@ bindsym $mod+Ctrl+$right focus workspace right
 #
 
 	# read 1 character and mark the current window with this character
-	bindsym $mod+z exec i3-input -F 'mark %s' -l 1 -P 'Mark: '
+	bindsym $mod+Shift+z exec i3-input -F 'mark %s' -l 1 -P 'Mark: '
 
 	# read 1 character and go to the window with the character
-	bindsym $mod+Shift+z exec i3-input -F '[con_mark="%s"] focus' -l 1 -P 'Goto: '
+	bindsym $mod+z exec i3-input -F '[con_mark="%s"] focus' -l 1 -P 'Goto: '
 
 #
 # Scratchpad:
