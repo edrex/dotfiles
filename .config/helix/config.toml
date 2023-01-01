@@ -1,4 +1,4 @@
-theme = "doom_acario_dark"
+theme = "autumn_night"
 
 [editor]
 auto-save = true
@@ -32,6 +32,6 @@ tab = "→"
 tabpad = "-"
 
 [editor.whitespace.render]
-newline = "all"
-space = "all"
-tab = "all"
+# newline = "all"
+# space = "all"
+# tab = "all"
