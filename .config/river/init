@@ -22,7 +22,6 @@ case "$(hostname)" in
 		# riverctl input "1149:4128:Kensington_Expert_Mouse" pointer-accel 0.0
 		# riverctl input "1149:4128:Kensington_Expert_Mouse" scroll-method button
 		# riverctl input "1149:4128:Kensington_Expert_Mouse" scroll-button BTN_SIDE
-		# riverctl spawn "wlr-randr --output 'eDP-1' --off --output HDMI-A-1 --custom-mode 2560x1080@60Hz"
 		# riverctl spawn "swaybg -m fill -i \"$(find /home/leon/Pictures/Wallpaper/ | shuf -n1)\""
 		# ;;
 
@@ -34,10 +33,11 @@ case "$(hostname)" in
 		# riverctl map normal None XF86Launch1 spawn "wlopm --toggle LVDS-1"
 		;;
 esac
-#riverctl spawn "albert # launcher"
 riverctl spawn "mako --default-timeout 10000 # notifications"
+
+way-displays > /tmp/way-displays.${XDG_VTNR}.${USER}.log 2>&1 & # https://github.com/alex-courtis/way-displays
+
 riverctl map normal $mod Escape spawn "makoctl dismiss"
-riverctl spawn "kanshi" #auto output layout
 riverctl spawn river-tag-overlay
 riverctl spawn "swayidle -w\
     idlehint 120 \
@@ -74,6 +74,8 @@ riverctl map normal $mod b spawn "btmenu"
 
 riverctl map normal $mod Q close
 riverctl map normal $mod+Shift E exit
+
+riverctl focus-follows-cursor normal
 
 # Mod+J and Mod+K to focus the next/previous view in the layout stack
 riverctl map normal $mod J focus-view next
@@ -119,30 +121,23 @@ riverctl map-pointer normal $mod BTN_LEFT move-view
 # Mod + Right Mouse Button to resize views
 riverctl map-pointer normal $mod BTN_RIGHT resize-view
 
-##############
 # Scratchpad #
-##############
 scratch_tag=$((1 << 20 ))
 riverctl map normal $mod       P toggle-focused-tags ${scratch_tag}
 riverctl map normal $mod+Shift P set-view-tags       ${scratch_tag}
 all_but_scratch_tag=$(( ((1 << 32) - 1) ^ $scratch_tag ))
 riverctl spawn-tagmask ${all_but_scratch_tag}
 
-
-
+# tags
 for i in $(seq 1 9)
 do
     tags=$((1 << ($i - 1)))
-
     # Mod+[1-9] to focus tag [0-8]
     riverctl map normal $mod $i set-focused-tags $tags
-
     # Mod+Shift+[1-9] to tag focused view with tag [0-8]
     riverctl map normal $mod+Shift $i set-view-tags $tags
-
     # Mod+Control+[1-9] to toggle focus of tag [0-8]
     riverctl map normal $mod+Control $i toggle-focused-tags $tags
-
     # Mod+Shift+Control+[1-9] to toggle tag [0-8] of focused view
     riverctl map normal $mod+Shift+Control $i toggle-view-tags $tags
 done
