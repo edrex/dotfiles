@@ -20,6 +20,7 @@ hidden = false
 
 [editor.indent-guides]
 render = true
+skip-levels = 1
 
 [editor.lsp]
 display-messages = true
@@ -36,3 +37,16 @@ tabpad = "-"
 # newline = "all"
 # space = "all"
 # tab = "all"
+
+## My keybinds
+# https://docs.helix-editor.com/remapping.html
+[keys.normal.n]
+# TODO: surround selection with [[]]
+l = ":pipe echo -n \"[[$(cat)]]\""
+j = ":pipe echo 'TODO: open today's journal"
+
+# TODO: this is pretty useless. 
+# minus = ":pipe sed -e 's/^/ - /'"
+# broken
+# i = ["open_below", "normal_mode", ":shell_insert_output echo ' - '"]
+# c = ""
