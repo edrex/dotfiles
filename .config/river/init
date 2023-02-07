@@ -156,7 +156,7 @@ riverctl map passthrough $mod F11 enter-mode normal
 # River doesn't rememeber window -> output associations between plugs
 riverctl default-layout stacktile
 # River will send the process group of the init executable SIGTERM on exit.
-exec stacktile \ # --primary-sublayout \"${sublayout}\" \
+exec stacktile \
        --per-tag-config \
        --inner-padding 0 \
        --outer-padding 0

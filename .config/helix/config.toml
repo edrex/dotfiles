@@ -44,11 +44,11 @@ tabpad = "-"
 ## My keybinds
 
 # fix x on empty line, see https://github.com/helix-editor/helix/discussions/1511#discussioncomment-3362549
-[keys.normal]
-x = "extend_to_line_bounds" # previously "X"
-X = "no_op"
-[keys.select]
-x = "extend_line" # previously normal mode "x"
+# [keys.normal]
+# x = "extend_to_line_bounds" # previously "X"
+# X = "no_op"
+# [keys.select]
+# x = "extend_line" # previously normal mode "x"
 
 
 # https://docs.helix-editor.com/remapping.html
