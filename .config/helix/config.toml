@@ -1,4 +1,6 @@
+# TODO: see if I want to crib anything, now that I know helix pretty well
 # https://github.com/LGUG2Z/helix-vim/blob/master/config.toml
+
 theme = "autumn_night"
 
 [editor]
@@ -9,6 +11,7 @@ gutters = ["diagnostics", "line-numbers", "spacer"]
 line-number = "relative"
 mouse = true
 true-color = true
+soft-wrap.enable = true
 
 [editor.cursor-shape]
 insert = "bar"
@@ -39,11 +42,29 @@ tabpad = "-"
 # tab = "all"
 
 ## My keybinds
+
+# fix x on empty line, see https://github.com/helix-editor/helix/discussions/1511#discussioncomment-3362549
+[keys.normal]
+x = "extend_to_line_bounds" # previously "X"
+X = "no_op"
+[keys.select]
+x = "extend_line" # previously normal mode "x"
+
+
 # https://docs.helix-editor.com/remapping.html
-[keys.normal.n]
+[keys.normal."\\"]
+
+# [keys.normal."\\".p]
 # TODO: surround selection with [[]]
 l = ":pipe echo -n \"[[$(cat)]]\""
-j = ":pipe echo 'TODO: open today's journal"
+
+# [keys.normal."\\".i]
+d = ":pipe date +%Y-%m-%d|tr -d '\n'"
+
+# Support for macro-style keybinding https://github.com/helix-editor/helix/issues/1383
+
+# Other options for stripping newlines:
+# https://stackoverflow.com/questions/12524308/bash-strip-trailing-linebreak-from-output 
 
 # TODO: this is pretty useless. 
 # minus = ":pipe sed -e 's/^/ - /'"

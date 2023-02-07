@@ -38,7 +38,7 @@ riverctl background-color       "0x404040"
 riverctl border-color-unfocused "0x202020"
 riverctl border-color-focused   "0xF0F0F0"
 riverctl border-width 1
-c# riverctl xcursor-theme tarazed
+riverctl xcursor-theme tarazed
 gsettings set org.gnome.desktop.interface gtk-theme Adwaita
 gsettings set org.gnome.desktop.interface icon-theme Breeze
 gsettings set org.gnome.desktop.wm.preferences button-layout " "
@@ -87,30 +87,29 @@ riverctl map normal $mod K focus-view previous
 riverctl map normal $mod+Shift J swap next
 riverctl map normal $mod+Shift K swap previous
 
-riverctl map normal $mod Period focus-output next
-riverctl map normal $mod Comma focus-output previous
-
-riverctl map normal $mod+Shift Period send-to-output next
-riverctl map normal $mod+Shift Comma send-to-output previous
+# riverctl map normal $mod Period focus-output next
+riverctl map normal $mod Comma focus-output next
+riverctl map normal $mod+Shift Comma send-to-output next
+# riverctl map normal $mod+Shift Period send-to-output previous
 riverctl map normal $mod Return zoom # bump focused view to top of layout stack
 
 # move views
-riverctl map normal $mod+Mod1 H move left 100
-riverctl map normal $mod+Mod1 J move down 100
-riverctl map normal $mod+Mod1 K move up 100
-riverctl map normal $mod+Mod1 L move right 100
+riverctl map normal $mod+Alt H move left 100
+riverctl map normal $mod+Alt J move down 100
+riverctl map normal $mod+Alt K move up 100
+riverctl map normal $mod+Alt L move right 100
 
 # snap views to screen edges
-riverctl map normal $mod+Mod1+Control H snap left
-riverctl map normal $mod+Mod1+Control J snap down
-riverctl map normal $mod+Mod1+Control K snap up
-riverctl map normal $mod+Mod1+Control L snap right
+riverctl map normal $mod+Alt+Control H snap left
+riverctl map normal $mod+Alt+Control J snap down
+riverctl map normal $mod+Alt+Control K snap up
+riverctl map normal $mod+Alt+Control L snap right
 
 # resize views
-riverctl map normal $mod+Mod1+Shift H resize horizontal -100
-riverctl map normal $mod+Mod1+Shift J resize vertical 100
-riverctl map normal $mod+Mod1+Shift K resize vertical -100
-riverctl map normal $mod+Mod1+Shift L resize horizontal 100
+riverctl map normal $mod+Alt+Shift H resize horizontal -100
+riverctl map normal $mod+Alt+Shift J resize vertical 100
+riverctl map normal $mod+Alt+Shift K resize vertical -100
+riverctl map normal $mod+Alt+Shift L resize horizontal 100
 
 # mod + mouse
 riverctl map-pointer normal $mod BTN_LEFT move-view
@@ -152,10 +151,20 @@ riverctl declare-mode passthrough
 riverctl map normal $mod F11 enter-mode passthrough
 riverctl map passthrough $mod F11 enter-mode normal
 
+
+# TODO: eval other options.
+# River doesn't rememeber window -> output associations between plugs
 riverctl default-layout stacktile
 # River will send the process group of the init executable SIGTERM on exit.
-exec stacktile --primary-sublayout \"${sublayout}\" \
-               --per-tag-config
+exec stacktile \ # --primary-sublayout \"${sublayout}\" \
+       --per-tag-config \
+       --inner-padding 0 \
+       --outer-padding 0
+
+# Issues I care about:
+# - Restore view's output on output reconnect: https://github.com/riverwm/river/issues/666
+# - Single tagset / Shared tags: https://github.com/riverwm/river/issues/357
+
 riverctl map normal $mod       H     send-layout-cmd stacktile "primary_ratio -0.05"
 riverctl map normal $mod       L     send-layout-cmd stacktile "primary_ratio +0.05"
 riverctl map normal $mod+Shift H     send-layout-cmd stacktile "primary_count  +1"
@@ -166,5 +175,5 @@ riverctl map normal $mod       Up    send-layout-cmd stacktile "primary_position
 riverctl map normal $mod       Right send-layout-cmd stacktile "primary_position right"
 riverctl map normal $mod       Down  send-layout-cmd stacktile "primary_position bottom"
 riverctl map normal $mod       Left  send-layout-cmd stacktile "primary_position left"
-# to emulate rivertile: `stacktile --per-tag-config --primary-sublayout rows --remainder-sublayout rows --secondary-count 0`
-# to place all views in the full layout: "primary_sublayout full" and "all_primary_toggle"
+riverctl map normal $mod       T     send-layout-cmd stacktile "remainder_sublayout stack"
+riverctl map normal $mod       R     send-layout-cmd stacktile "remainder_sublayout rows"
