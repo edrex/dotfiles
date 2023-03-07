@@ -5,12 +5,8 @@ theme = "autumn_night"
 
 [editor]
 auto-save = true
-color-modes = true
-cursorline = true
-gutters = ["diagnostics", "line-numbers", "spacer"]
-line-number = "relative"
-mouse = true
-true-color = true
+# cursorline = true
+# line-number = "relative"
 soft-wrap.enable = true
 
 [editor.cursor-shape]
@@ -19,7 +15,7 @@ normal = "block"
 select = "underline"
 
 [editor.file-picker]
-hidden = false
+# hidden = false # true = hide
 
 [editor.indent-guides]
 render = true
@@ -63,11 +59,25 @@ d = ":pipe date +%Y-%m-%d|tr -d '\n'"
 
 # Support for macro-style keybinding https://github.com/helix-editor/helix/issues/1383
 
-# Other options for stripping newlines:
-# https://stackoverflow.com/questions/12524308/bash-strip-trailing-linebreak-from-output 
-
 # TODO: this is pretty useless. 
 # minus = ":pipe sed -e 's/^/ - /'"
 # broken
 # i = ["open_below", "normal_mode", ":shell_insert_output echo ' - '"]
 # c = ""
+
+# src: https://github.com/LGUG2Z/helix-vim/blob/master/config.toml
+# Clipboards over registers ye ye
+x = "delete_selection"
+p = ["paste_clipboard_after", "collapse_selection"]
+P = ["paste_clipboard_before", "collapse_selection"]
+# Would be nice to add ya and yi, but the surround commands can't be chained
+Y = ["extend_to_line_end", "yank_main_selection_to_clipboard", "collapse_selection"]
+
+[keys.select]
+# Clipboards over registers ye ye
+d = ["yank_main_selection_to_clipboard", "delete_selection"]
+x = ["yank_main_selection_to_clipboard", "delete_selection"]
+y = ["yank_main_selection_to_clipboard", "normal_mode", "flip_selections", "collapse_selection"]
+Y = ["extend_to_line_bounds", "yank_main_selection_to_clipboard", "goto_line_start", "collapse_selection", "normal_mode"]
+p = "replace_selections_with_clipboard" # No life without this
+P = "paste_clipboard_before"

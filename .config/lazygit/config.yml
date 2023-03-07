@@ -1,0 +1,8 @@
+# https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md
+disableStartupPopups: true # not sure what this does exactly
+promptToReturnFromSubprocess: false # display confirmation when subprocess terminates
+update:
+  method: never
+git:
+  autoFetch: false
+  # autoRefresh: true # what's this do? boo no commented config example or option docs

@@ -1,0 +1,13 @@
+[[language]]
+name = "markdown"
+language-server = { command = "zk", args = ["lsp"] }
+
+[[language]]
+name = "c"
+auto-format = false
+language-server = { command = "ccls", args = [] }
+
+[[language]]
+name = "cpp"
+auto-format = false
+language-server = { command = "ccls", args = [] }
