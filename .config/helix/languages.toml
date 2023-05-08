@@ -1,6 +1,11 @@
 [[language]]
 name = "markdown"
-language-server = { command = "zk", args = ["lsp"] }
+language-server = { command = "marksman" }
+
+# zk only works for projects with a `.zk` subdir
+# both options are bad in different ways
+# enable per-directory with a local .helix/languages.toml
+# language-server = { command = "zk", args = ["lsp"] }
 
 [[language]]
 name = "c"
