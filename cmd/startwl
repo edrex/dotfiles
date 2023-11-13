@@ -1,0 +1,23 @@
+#!/bin/sh
+
+COMPOSITOR=${COMPOSITOR:-sway}
+export TERMINAL=foot
+export NIXOS_OZONE_WL=1
+
+export QT_QPA_PLATFORM=wayland-egl
+export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+
+export MOZ_ENABLE_WAYLAND=1
+
+export CLUTTER_BACKEND=wayland
+export SDL_VIDEODRIVER=wayland
+export _JAVA_AWT_WM_NONREPARENTING=1
+
+#TODO: put these in includes
+export QT_QPA_PLATFORMTHEME="qt5ct"
+
+export GPG_TTY=$(tty)
+gpg-connect-agent updatestartuptty /bye >/dev/null
+# systemctl --user restart gpg-agent
+
+${COMPOSITOR} > $HOME/.log/$(basename ${COMPOSITOR}).log 2>&1
