@@ -2,14 +2,15 @@ theme = "autumn_night"
 
 [editor]
 auto-save = true
+rulers = [81]
 # cursorline = true
 # line-number = "relative"
 soft-wrap.enable = true
 
 [editor.statusline]
-left = ["version-control"]
-center = ["file-name"]
-right = ["mode", "selections", "position", "file-encoding", "file-type", "spinner", "diagnostics"]
+left = ["mode", "spinner", "version-control", "file-name"]
+center = []
+right = ["selections", "position", "file-encoding", "file-type", "diagnostics"]
 
 [editor.cursor-shape]
 insert = "bar"
