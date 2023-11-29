@@ -1,4 +1,5 @@
-language-server.marksman.command = "marksman"
+# disabling because it makes cpu spin
+# language-server.marksman.command = "marksman"
 language-server.ccls.command = "ccls"
 
 # language.markdown.language-servers = [ "marksman" ]
