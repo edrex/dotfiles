@@ -9,7 +9,12 @@ x-scheme-handler/http=chromium-browser.desktop
 x-scheme-handler/https=chromium-browser.desktop
 x-scheme-handler/about=chromium-browser.desktop
 x-scheme-handler/unknown=chromium-browser.desktop
+text/plain=sublime_text.desktop
+x-scheme-handler/magnet=userapp-transmission-gtk-8V5PK2.desktop
+x-scheme-handler/discord-1038970224050962582=nuclear.desktop
 
 [Added Associations]
 image/jpeg=org.gnome.eog.desktop;
 application/pdf=org.gnome.Evince.desktop;
+text/plain=sublime_text.desktop;
+x-scheme-handler/magnet=userapp-transmission-gtk-8V5PK2.desktop;

@@ -1,6 +1,7 @@
 # disabling because it makes cpu spin
 # language-server.marksman.command = "marksman"
 language-server.ccls.command = "ccls"
+language-server.nixd.command = "nixd"
 
 # language.markdown.language-servers = [ "marksman" ]
 
@@ -18,3 +19,6 @@ language-servers = [ "ccls" ]
 name = "cpp"
 auto-format = false
 language-servers = [ "ccls"]
+[[language]]
+name = "nix"
+language-servers = ["nixd"]
